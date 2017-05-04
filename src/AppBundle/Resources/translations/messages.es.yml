@@ -1,0 +1,16 @@
+E4.: Acceso denegado al sistema.
+E5: Error desconocido en la base de datos.
+23000: Error de integridad referencial en la base de datos.
+23502: Existen valores nulos en la operación.
+23503: El elemento que intenta eliminar está siendo usado en el sistema.
+23505: La operaci&oacute;n viola las restricciones de unicidad en la base de datos.
+HV00N: Imposible establecer conexion con la base de datos.
+28000: Acceso denegado a la base de datos.
+53300: Se est&aacute;n ejecutando muchas conecciones a la base de datos.
+8000: Ha ocurrido un error en la base de datos.
+COMPANYDELETE: La empresa que intenta eliminar es de tipo empresa rectora y por tanto no se puede eliminar.
+ERRORCOMPANYEXIST: Ya existe una empresa rectora en el sistema.
+unique.role: Ya existe un rol con ese nombre
+unique.tipocaso: Ya existe un tipo de caso con ese nombre.
+unique.cuenta: Ya existe una cuenta con ese n&uacute;mero.
+unique.company: Ya existe una empresa o cliente con ese nombre.

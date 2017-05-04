@@ -1,0 +1,38 @@
+
+<html>
+    <head>
+
+    </head>
+    <body>
+        
+        <h3>Recibo de pago del caso {{caso.nombre}}</h3>
+        <hr>
+        <h5>Datos de la empresa que atiende su caso</h5>
+        <span style="font-weight: bold">Nombre: </span>{{empresa.nombre}} <br>
+        <span style="font-weight: bold">Direcci&oacute;n: </span>{{empresa.direccion}} <br>
+        <span style="font-weight: bold">Representante: </span>{{empresa.representante}} <br>
+        <span style="font-weight: bold">Tel&eacute;fono: </span>{{empresa.telefono}} <br>
+        <span style="font-weight: bold">Correo electr&oacute;nico: </span>{{empresa.correo}} <br>
+        <hr>
+        <h5>Datos de su empresa</h5>
+        <span style="font-weight: bold">Nombre: </span>{{empresaCliente.nombre}} 
+        <br>
+        <span style="font-weight: bold">Direcci&oacute;n: </span>{{empresaCliente.direccion}}  
+        <br>
+        <span style="font-weight: bold">Tel&eacute;fono: </span>{{empresaCliente.telefono}} 
+        <br>
+        <span style="font-weight: bold">Correo electr&oacute;nico: </span>{{empresaCliente.correo}}
+        <br>
+        <hr>
+        <h5>Datos del caso</h5>
+        <span style="font-weight: bold">Nombre: </span>{{caso.nombre}} <br>
+        <span style="font-weight: bold">Estado: </span>{{caso.estado.nombre}} <br>
+        <span style="font-weight: bold">Cantidad de dinero a pagar: </span>{{caso.honorarios}} <br>
+        <span style="font-weight: bold">Cantidad de dinero pago: </span>{{caso.getDineroPagado}} <br>
+        <span style="font-weight: bold">Cantidad de dinero por pagar: </span>{{caso.honorarios-caso.getDineroPagado}}<br> 
+        
+        {%  if caso.getProximoPago %}
+        <span style="font-weight: bold">Fecha del pr&oacute;ximo pago: </span>{{caso.getProximoPago}} <br>
+        {%  endif %}
+    </body>
+</html>

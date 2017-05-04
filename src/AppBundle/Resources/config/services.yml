@@ -1,0 +1,62 @@
+services:
+ manager.json:
+        class: AppBundle\Libs\Normalizer\ManagerNormalizer
+        arguments: ["@service_container"]
+ manager.email:
+        class: AppBundle\Libs\Helper\SendCustomEmail
+        arguments: ["@service_container"]
+ manager.validator:
+        class: AppBundle\Libs\Validator\ManagerValidator
+        arguments: ["@service_container"]
+ app.controller_listener:
+        class: AppBundle\Listeners\BeforeControllerListener
+        arguments: ["@doctrine"]
+        tags:
+            - { name: kernel.event_listener, event: kernel.controller, method: onKernelController }
+ app.request_listener:
+        class: AppBundle\Listeners\RequestListener
+        arguments: []
+        tags:
+            - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }
+ normalizer.agbanco:
+        class: AppBundle\Libs\EntityNormalizer\AGBancoNormalizer
+ normalizer.agciudad:
+        class: AppBundle\Libs\EntityNormalizer\AGCiudadNormalizer
+ normalizer.agaccion:
+        class: AppBundle\Libs\EntityNormalizer\AGAccionNormalizer
+ normalizer.agcuenta:
+        class: AppBundle\Libs\EntityNormalizer\AGCuentaNormalizer
+ normalizer.agdetalle:
+        class: AppBundle\Libs\EntityNormalizer\AGDetalleNormalizer
+ normalizer.agempresa:
+        class: AppBundle\Libs\EntityNormalizer\AGEmpresaNormalizer
+ normalizer.agestado:
+        class: AppBundle\Libs\EntityNormalizer\AGEstadoNormalizer
+ normalizer.agformapago:
+        class: AppBundle\Libs\EntityNormalizer\AGFormaPagoNormalizer
+ normalizer.agrol:
+        class: AppBundle\Libs\EntityNormalizer\AGRolNormalizer
+ normalizer.agtipocaso:
+        class: AppBundle\Libs\EntityNormalizer\AGTipoCasoNormalizer
+ normalizer.agtipocasocaracteristica:
+        class: AppBundle\Libs\EntityNormalizer\AGTipoCasoCaracteristicaNormalizer
+ normalizer.agtipocliente:
+        class: AppBundle\Libs\EntityNormalizer\AGTipoClienteNormalizer
+ normalizer.agtipocobro:
+        class: AppBundle\Libs\EntityNormalizer\AGTipoCobroNormalizer
+ normalizer.agtipodatos:
+        class: AppBundle\Libs\EntityNormalizer\AGTipoDatoNormalizer
+ normalizer.agusuario:
+        class: AppBundle\Libs\EntityNormalizer\AGUsuarioNormalizer
+ normalizer.agcaso:
+        class: AppBundle\Libs\EntityNormalizer\AGCasoNormalizer
+ normalizer.agpagorealizado:
+        class: AppBundle\Libs\EntityNormalizer\AGPagoRealizadoNormalizer
+ normalizer.agseguimiento:
+        class: AppBundle\Libs\EntityNormalizer\AGSeguimientoNormalizer
+ normalizer.agdocumento:
+        class: AppBundle\Libs\EntityNormalizer\AGDocumentoNormalizer
+ importfileimage:
+        class: AppBundle\Libs\Import\ImportFile
+        arguments: [%kernel.root_dir%]
+   

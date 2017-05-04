@@ -1,0 +1,96 @@
+<form class="form" role="search" id="search-report" style="padding-top: 15px;">
+    <div class="row">
+        <div class="col-md-4 col-xs-12">
+            <div class="form-group">
+
+                <label>Fecha  inicial</label><span class="required"> *</span>
+                <div class="input-group datetimepicker-field col-xs-12" id="fecha-inicial">
+                    <input type="text"  class="form-control" name="inicio"/>
+                    <span class="input-group-addon" style="cursor: pointer"><i class="fa fa-calendar"></i></span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 col-xs-12">
+            <div class="form-group">
+                <label>Fecha  final</label><span class="required" > *</span>
+                <div class="input-group datetimepicker-field col-xs-12"  id="fecha-final">
+                    <input type="text"  class="form-control" name="fin"/>
+                    <span class="input-group-addon" style="cursor: pointer"><i class="fa fa-calendar"></i></span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 col-xs-12">
+                <div class="form-group">
+                    <label>Nombre del caso</label>
+                    <div class="input-group col-xs-12">
+                        <input id="nombrecaso" class="form-control" name="nombre" title="Inserte el nombre del caso"  placeholder="Nombre" autocomplete="off">
+                    </div>
+                </div>
+            </div>
+        </div>
+    <div class="row">
+       
+            
+            <div class="col-md-4 col-xs-12">
+                <div class="form-group">
+                    <label>Cliente</label>
+                    <div class="input-group col-xs-12">
+                        <select id="cliente-select" class="form-control" name="empresa" title="Seleccione el cliente">
+                            <option value="-1" selected="selected">--Clientes--</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-xs-12">
+                <div class="form-group" id="div-intermediario-select">
+                    <label>Intermediario del caso</label>
+                    <div class="input-group col-xs-12">
+                        <select id="intermediario-select" class="form-control" name="intermediario" title="Seleccione el intermediario del caso">
+                            <option value="-1" selected="selected">--Intermediarios--</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-xs-12">
+                <div class="form-group" id="div-responsable-select">
+                    <label>Responsable del caso</label>
+                    <div class="input-group col-xs-12">
+                        <select id="responsable-select" class="form-control" name="responsable" title="Seleccione el responsables">
+                            <option value="-1" selected="selected">--Responsable--</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row">
+       
+        <div class="col-md-4 col-xs-12">
+            <div class="form-group">
+                <label>Tipo de caso</label>
+                <div class="input-group col-xs-12">
+                    <select id="tipocaso-select" class="form-control" name="tipocaso" title="Seleccione el tipo de caso">
+                        <option value="-1" selected="selected">--Tipos de Casos--</option>
+                    </select>
+                </div>
+            </div>
+            </div>
+             <div class="col-md-4 col-xs-12" >
+            <div class="form-group">
+                <label>Estado del caso</label>
+                <div class="input-group col-xs-12">
+                    <select id="estado-select-update" class="form-control" name="estado" title="Seleccione el estado del caso">
+                        <option value="-1" selected="selected">--Estado--</option>
+                    </select>
+                </div>
+            </div>
+            </div>
+             <div class="col-md-4 col-xs-12">
+            <div class="form-group">
+                <label></label>
+                <button type="submit" id="filter-report" class="btn btn-primary input-group">Filtrar</button>
+            </div>
+            </div>
+        </div>
+
+</form>

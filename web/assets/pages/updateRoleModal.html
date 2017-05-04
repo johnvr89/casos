@@ -1,0 +1,35 @@
+<div style="display: none;" reload="true" class="modal fade in" id="divUpdateModal" tabindex="-1" role="dialog" aria-labelledby="divUpdateModalLabel" aria-hidden="true">
+    <form id="form-updateRole" name="form-addRole" method="post" action="">
+        <div class="modal-dialog" style="max-width: 400px">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h3 class="modal-title" id="divUpdateModalLabel" align="center">Adicionar Rol</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="row">											
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label>Nombre del rol</label><span class="required"> *</span>
+                                <div class="input-group col-xs-12">
+                                    <input class="form-control" name="nombre" title="Inserte el nombre del rol"  placeholder="Nombre" autocomplete="off" autofocus="">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Descripci&oacute;n</label><span class="required"> *</span>
+                                <div class="input-group col-xs-12">
+                                    <textarea class="form-control" name="descripcion" rows="5" title="Inserte la descripci&oacute;n del rol"  placeholder="Descripci&oacute;n"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div> 
+                </div> 
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                    <button id="saveRole" type="submit" class="btn btn-primary">Guardar</button>
+                </div>										 
+            </div>
+        </div>
+    </form>
+</div>
+

@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Casos en L&iacute;nea</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="assets/css/bootstrap.css" rel="stylesheet">        
+        <link href="assets/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+        <link href="assets/css/morris-0.css" rel="stylesheet">
+        <link href="assets/css/custom.css" rel="stylesheet">
+        <link href="assets/css/css.css" rel="stylesheet" type="text/css">
+        <link href="assets/css/alertify.min.css" rel="stylesheet" type="text/css">
+        <link href="assets/css/alertify-bootstrap.min.css" rel="stylesheet" type="text/css">
+        <link href="assets/css/bootstrap-datetimepicker.css" rel="stylesheet" type="text/css">
+        <link href="assets/css/buttons.bootstrap.min.css" rel="stylesheet" type="text/css">
+        <link href="assets/css/dataTables.css" rel="stylesheet" type="text/css">
+        <link href="assets/plugins/validationengine/css/validationEngine.jquery.css" rel="stylesheet" type="text/css">
+        <link href="assets/plugins/waitMe/waitMe.min.css" rel="stylesheet" type="text/css">
+        <link href="assets/css/bootstrap-fileupload.min.css" rel="stylesheet" type="text/css">
+        <link href="assets/plugins/chosen/chosen.min.css" rel="stylesheet" type="text/css">
+        <link href="assets/plugins/tagsinput/jquery.tagsinput.css" rel="stylesheet" type="text/css">
+        <link href="assets/css/bootstrap-fileupload.min.css" rel="stylesheet" type="text/css">
+    </head>
+    <body>
+        <script>
+            if (!sessionStorage.auth_token)
+            {
+                location.href = "/login.html";
+            }
+        </script>
+        <div id="body-container" style="min-height: 700px;" >
+            <div id="wrapper" class="hide">
+            <nav class="navbar navbar-default navbar-cls-top " role="navigation" style="margin-bottom: 0">
+                <div class="navbar-header">
+                    <button type="button" class="fa- navbar-toggle" data-toggle="collapse" data-target=".sidebar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                </div>
+                <div class="system-info-bar pull-left"> 
+                    <div class="system-logo pull-left"> <img id="system-logo" src="assets/images/logo.png" width="80px" height="50px"/> </div>
+                    <div class="hidden-xs"><span class="sys-name">Sistema de Gestión de Casos en L&iacute;nea</span></div>
+                    <div class="info-topbar">
+                        <ul data-toggle="dropdown" class="user-info dropdown-toggle cursor-pointer"><span id="username-info">Usuario: nombre-usuario </span><span class="caret"></span></ul>
+                        <ul id="dropdown" class="dropdown-menu pull-right drop-down-info">
+                            <li>
+                                <div class="name-logo-company-container">
+                                    <span class="company-logo-container">
+                                        <img id="company-logo" alt="Logo de la Empresa" class="" src="/assets/images/no-user-logo.png" width="100" height="100">
+                                    </span>
+                                    <span class="name-company-info"> 
+                                        <h3> Nombre del Usuario  </h3>
+                                        <span><i class="fa fa-home"></i> Empresa del Usuario </span>
+                                    </span>
+                                </div>
+                            </li>
+                            <li class="label-company-info">
+                                <span > INFORMACIÓN DE LA EMPRESA </span>
+                            </li>
+                            <li class="label-company-info-item">
+                                <span id="company-info-email"> <strong>Correo:</strong> contraseña@mail.cas.ec</span>
+                            </li>
+                            <li class="label-company-info-item">
+                                <span id="company-info-phone"> <strong>Tel&eacute;fono:</strong> 783574587</span>
+                            </li>
+                            <li class="label-company-info-item">
+                                <span id="company-info-city-name"> <strong>Ciudad:</strong> Quito</span>
+                            </li>
+                            <li class="label-company-info">
+                                <span > Acciones </span>
+                            </li>
+                            <li>
+                                <a href="#" data-toggle="modal" data-target="#changePassword">
+                                <i class="fa fa-key"></i> Cambiar Contraseña</a>
+                            </li>
+                            <li>
+                                <a href="#" id="btn-logout">
+                                <i class="fa fa-sign-out"></i> Cerrar Sesi&oacute;n</a>
+                            </li>
+                        </ul>
+                        <!-- -->
+                    </div>
+                </div>
+            </nav>   
+            <nav class="navbar-default navbar-side" role="navigation">
+                <div class="sidebar-collapse">
+                    <ul class="nav" id="main-menu">
+                        
+                    </ul>
+                </div>
+            </nav>
+            <div id="page-wrapper" waitMe="off">
+                <div id="page-inner">
+                    <div id="page-body" class="panel-body"></div>
+                </div>
+                <!-- /. PAGE WRAPPER  -->
+            </div>
+            <div id="changePasswordContainer"></div>
+        </div>
+        </div>
+        
+        <script src="assets/js/configuracion.js" type="text/javascript"></script>
+        <script src="assets/js/dataStructure.js" type="text/javascript"></script>
+        <script src="assets/js/jquery-1.js" type="text/javascript"></script>
+        <script src="assets/js/bootstrap.js" type="text/javascript"></script>
+        <script src="assets/plugins/dataTables/jquery-dataTable.min.js" type="text/javascript"></script>
+        <script src="assets/plugins/dataTables/dataTables.bootstrap.min.js" type="text/javascript"></script>
+        <script src="assets/plugins/dataTables/dataTables.buttons.min.js" type="text/javascript"></script>
+        <script src="assets/plugins/dataTables/buttons.bootstrap.min.js" type="text/javascript"></script>
+        <script src="assets/plugins/dataTables/jszip.min.js" type="text/javascript"></script>
+        <script src="assets/plugins/dataTables/pdfmake.min.js" type="text/javascript"></script>
+        <script src="assets/plugins/dataTables/vfs_fonts.js" type="text/javascript"></script>
+        <script src="assets/plugins/dataTables/buttons.html5.min.js" type="text/javascript"></script>
+        <script src="assets/plugins/dataTables/buttons.print.min.js" type="text/javascript"></script>
+        <script src="assets/plugins/dataTables/buttons.colVis.min.js" type="text/javascript"></script>
+        <script src="assets/js/moment-with-locales.js" type="text/javascript"></script>
+        <script src="assets/js/bootstrap-datetimepicker.js" type="text/javascript"></script>
+        <script src="assets/js/bootstrap-filestyle.min.js" type="text/javascript"></script>
+        <script src="assets/js/alertify.min.js" type="text/javascript"></script>
+        <script src="assets/js/customMenu.js" type="text/javascript"></script>
+        <script src="assets/plugins/chosen/chosen.jquery.min.js" type="text/javascript"></script>
+        <script src="assets/plugins/tagsinput/jquery.tagsinput.min.js" type="text/javascript"></script>
+        <script src="assets/js/custom.js" type="text/javascript"></script>
+        <script src="assets/js/route.js" type="text/javascript"></script>
+        <script src="assets/js/buildInterface.js" type="text/javascript"></script>
+        <script src="assets/js/listPayment.js" type="text/javascript"></script>
+        <script src="assets/js/homePage.js" type="text/javascript"></script>
+        <script src="assets/js/manageCompany.js" type="text/javascript"></script>
+        <script src="assets/js/manageAccount.js" type="text/javascript"></script>
+        <script src="assets/js/manageFeatures.js" type="text/javascript"></script>
+        <script src="assets/js/manageCaseType.js" type="text/javascript"></script>
+        <script src="assets/js/manageUsers.js" type="text/javascript"></script>
+        <script src="assets/js/manageRol.js" type="text/javascript"></script>
+        <script src="assets/js/manageAction.js" type="text/javascript"></script>
+        <script src="assets/js/manageCases.js" type="text/javascript"></script>
+        <script src="assets/js/listClient.js" type="text/javascript"></script>
+        <script src="assets/js/manageTraceOfCase.js" type="text/javascript"></script>
+        <script src="assets/js/managePaymentOfCase.js" type="text/javascript"></script>
+        <script src="assets/js/listTrace.js" type="text/javascript"></script>
+        <script src="assets/js/reportCase.js" type="text/javascript"></script>
+        <script src="assets/js/reportClientPay.js" type="text/javascript"></script>
+        <script src="assets/plugins/waitMe/waitMe.min.js" type="text/javascript"></script>
+        <script src="assets/js/main.js" type="text/javascript"></script>
+        <script src="assets/js/alertify.min.js" type="text/javascript"></script>
+        <script src="assets/plugins/validationengine/js/jquery.validationEngine.js" type="text/javascript"></script>
+        <script src="assets/plugins/jquery-validation-1.11.1/dist/jquery.validate.min.js" type="text/javascript"></script>
+        <script src="assets/js/additionalValidator.js" type="text/javascript"></script>
+        <script src="assets/js/validationCompany.js" type="text/javascript"></script>
+        <script src="assets/js/validationAccount.js" type="text/javascript"></script>
+        <script src="assets/js/validationCaseType.js" type="text/javascript"></script>
+        <script src="assets/js/validationCaseFeatures.js" type="text/javascript"></script>
+        <script src="assets/js/validationUser.js" type="text/javascript"></script>
+        <script src="assets/js/validationCase.js" type="text/javascript"></script>
+        <script src="assets/js/validationPaymentCase.js" type="text/javascript"></script>
+        <script src="assets/js/validationTraceOfCase.js" type="text/javascript"></script>
+        <script src="assets/js/validationFilterReportClient.js" type="text/javascript"></script>
+        <script src="assets/js/validationChangePassword.js" type="text/javascript"></script>
+        <script src="assets/js/changePassword.js" type="text/javascript"></script>
+        <script src="assets/js/reportCaseConsolidated.js" type="text/javascript"></script>
+        <script src="assets/js/reportClientCaseConsolidated.js" type="text/javascript"></script>
+        <script src="assets/js/validationAction.js" type="text/javascript"></script>
+        <script src="assets/js/manageClient.js" type="text/javascript"></script>
+    </body>
+</html>

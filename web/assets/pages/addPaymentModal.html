@@ -1,0 +1,77 @@
+<div style="display: none;" class="modal fade in" id="addPaymentModal" tabindex="-1" role="dialog" aria-labelledby="addPaymentModalLabel" aria-hidden="true">
+    <form id="form-addPayment" name="form-addPayment" method="post" action="">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h3 class="modal-title" id="addPaymentModalLabel" align="center">Adicionar Pago</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="row">											
+                        <div class="form-group col-xs-12">
+                            <label id="porpagar"></label>
+                        </div>
+                        <div class="col-md-6">
+
+                            <div class="form-group">
+                                <label>Cantidad pagada</label><span class="required"> *</span>
+                                <div class="input-group col-xs-12">
+                                    <input class="form-control" name="valorPagado" title="Inserte la cantidad pagada"  placeholder="Cantidad pagada" autocomplete="off">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Cuenta</label><span class="required"> *</span>
+                                <div class="input-group col-xs-12">
+                                    <select id="select-cuenta" class="form-control" name="cuenta" title="Seleccione la cuenta">
+                                        <option value="-1" selected="selected">--Cuenta--</option>
+
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Forma de pago</label><span class="required"> *</span>
+                                <div class="input-group col-xs-12">
+                                    <select id="select-forma-pago" class="form-control" name="formaPago" title="Seleccione la forma de pago">
+                                        <option value="-1" selected="selected">--Forma de pago--</option>
+
+                                    </select>
+                                </div>
+                            </div>
+                        </div> 
+                        <div class="col-md-6">
+
+                            <div class="form-group">
+                                <label>Tipo de cobro</label><span class="required"> *</span>
+                                <div class="input-group col-xs-12">
+                                    <select id="select-tipo-cobro" class="form-control" name="tipoCobro" title="Seleccione el tipo de cobro">
+                                        <option value="-1" selected="selected">--Tipo de cobro--</option>
+
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Fecha del pr&oacute;ximo cobro</label><span id="requiered-payment-date" class="required"> *</span>
+                                <div class="input-group col-xs-12 datetimepicker-field">
+                                    <input  input-depend="select-tipo-cobro" value-depend="1" type="text"  class="form-control" name="fechaProximoCobro" />
+                                    <span class="input-group-addon" style="cursor: pointer"><i class="fa fa-calendar"></i></span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Documento</label>
+                                <div class="input-group col-xs-12" >
+                                    <input type="file" name="import" id="import-payment" class="filestyle">
+                                </div>
+                            </div>
+                        </div> 
+                    </div> 
+                </div> 
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                    <button id="saveCompany" type="submit" class="btn btn-primary">Guardar</button>
+                </div>										 
+            </div>
+        </div>
+    </form>
+</div>
+

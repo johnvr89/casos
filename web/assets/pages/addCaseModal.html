@@ -1,0 +1,98 @@
+<div style="display: none;" class="modal fade in" id="addCaseModal" tabindex="-1" role="dialog" aria-labelledby="addCaseModalLabel" aria-hidden="true">
+    <form id="form-addCase" name="form-addAccount" method="post" action="">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h3 class="modal-title" id="addCaseModalLabel" align="center">Adicionar Caso</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                         <div class="col-md-12">
+                        <div class="form-group">
+                                <label>Nombre del caso</label><span class="required"> *</span>
+                                <div class="input-group col-xs-12">
+                                    <input class="form-control" name="nombre" title="Inserte el nombre del caso"  placeholder="Nombre" autocomplete="off">
+                                </div>
+                            </div>
+                            </div>
+                        <div class="col-md-6">
+                            
+                            <div class="form-group">
+                                <label>Tipo de caso</label><span class="required"> *</span>
+                                <div class="input-group col-xs-12">
+                                    <select id="tipocaso-select" class="form-control" name="tipocaso" title="Seleccione el tipo de caso">
+                                        <option value="-1" selected="selected">--Tipos de Casos--</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Honorarios del caso</label><span class="required"> *</span>
+                                <div class="input-group col-xs-12">
+                                    <input class="form-control" name="honorarios" title="Inserte los honorarios del caso"  placeholder="Honorarios" autocomplete="off">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Cliente</label><span class="required"> *</span>
+                                <div class="input-group col-xs-12">
+                                    <select id="cliente-select" class="form-control" name="empresa" title="Seleccione el cliente">
+                                        <option value="-1" selected="selected">--Clientes--</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            
+                            <div class="form-group">
+                                <label>Responsable del caso</label>
+                                <div class="input-group col-xs-12">
+                                    <select id="responsable-select" class="form-control" name="responsable" title="Seleccione el responsables">
+                                        <option value="-1" selected="selected">--Responsable--</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Ciudad</label><span class="required"> *</span>
+                                <div class="input-group col-xs-12">
+                                    <select id="ciudad-select" class="form-control" name="ciudad" title="Seleccione la ciudad del caso">
+                                        <option value="-1" selected="selected">--Ciudades--</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Intermediario del caso</label>
+                                <div class="input-group col-xs-12">
+                                    <select id="intermediario-select" class="form-control" name="intermediario" title="Seleccione el intermediario del caso">
+                                        <option value="-1" selected="selected">--Intermediarios--</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label>Observaciones</label><span class="required"> *</span>
+                                <div class="input-group col-xs-12">
+                                    <textarea class="form-control" rows="4" name="observacion" title="Inserte una breve descripci&oacute;n del caso"  placeholder="Breve descripci&oacute;n" autofocus=""></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Resoluci&oacute;n del caso</label><span class="required"> *</span>
+                                <div class="input-group col-xs-12">
+                                    <textarea class="form-control "rows="4" name="resolucion" title="Inserte la resolución del caso"  placeholder="Breve descripci&oacute;n" autofocus=""></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="case-details" class="col-md-12">
+
+                        </div>
+                    </div> 
+                </div> 
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                    <button id="saveCase" type="submit" class="btn btn-primary">Guardar</button>
+                </div>										 
+            </div>
+        </div>
+    </form>
+</div>
+

@@ -1,0 +1,24 @@
+normalizer.bad.extension: La clase normalizadora debe de extender de abstract normalizer.
+normalizer.not.found: El normalizador %s no se encuentra registrado como servicio.
+validator.not.found: El validador %s no se encuentra registrado como servicio.
+integrity.constraint.violation: "Imposible realizar operación: El elemento que está insertando/eliminando ya existe o no se puede eliminar porque otros dependen de su existencia."
+values.null: Existen valores nulos en la operación.
+conection.lost: Imposible establecer conexion con la base de datos.
+user.privileges: Acceso denegado a la base de datos.
+routines.exception: Ha ocurrido un error en una rutina de la base de datos.
+many.conections: Se est&aacute;n ejecutando muchas conecciones a la base de datos.
+database.error: Ha ocurrido un error en la base de datos.
+uknow.error: Error desconocido en la base de datos.
+access.denied: Acceso denegado al sistema.
+unique.violation: La operaci&oacute;n viola las restricciones de unicidad en la base de datos.
+object.not.found: La entidad %s con id %d no existe.
+entity.not.found: La entidad %s no existe.
+appbundle.not.configured: El par&aacute;metro appbundle no se encuentra configurado en el sistema.
+entity.method.not.exist: El m&eacute;todo %s no existe en la entidad %s.
+array.many.to.many.not.exist: No existe un arreglo de valores para llamar al m&eacute;todo %s en la clase %s.
+validation: %s
+validator.not.found: El validador %s no se encuentra registrado como servicio.
+validator.bad.extension: La clase validadora debe de extender de abstract validator.
+validator.bad.return: El validador %s debe de retornar una cadena como error.
+validator.bad.params: Debe existir el nombre del validador en las opci&oacute;n extraValidate.
+reference.constraint.violation: El elemento que intenta eliminar está siendo usado en el sistema.

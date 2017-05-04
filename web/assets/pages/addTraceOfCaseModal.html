@@ -1,0 +1,53 @@
+<div style="display: none;" class="modal fade in" id="addModalTrace" tabindex="-1" role="dialog" aria-labelledby="addModalTraceLabel" aria-hidden="true">
+    <form id="form-addTraceOfCaseModal" name="form-addTraceOfCaseModal" method="post" action="">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h3 class="modal-title" id="addModalTraceLabel" align="center">Adicionar Seguimiento</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Nombre del seguimiento</label><span class="required"> *</span>
+                                <div class="input-group col-xs-12">
+                                    <input class="form-control" name="nombre" title="Inserte el nombre del seguimiento"  placeholder="Nombre" autocomplete="off" autofocus="">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Breve descripci&oacute;n</label><span class="required"> *</span>
+                                <div class="input-group col-xs-12">
+                                    <textarea class="form-control" name="descripcion" rows="5" title="Inserte una breve descripci&oacute;n"  placeholder="Descripci&oacute;n"></textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+
+                            <div class="form-group">
+                                <label>Observaciones</label><span class="required"> *</span>
+                                <div class="input-group col-xs-12">
+                                    <textarea class="form-control" rows="4" name="observacion" title="Inserte una breve observaci&oacute;n del seguimiento"  placeholder="Breve observac&oacute;n" autofocus=""></textarea>
+                                </div>
+                            </div>
+                             
+                            <div class="form-group">
+                                <label>Documento</label>
+                                <div class="input-group col-xs-12" style="max-width: 400px;">
+                                    <input type="file" name="import" id="import" class="filestyle">
+                                </div>
+                            </div>
+                        </div> 																																												                                                            
+                    </div> 
+                </div> 
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                    <button id="saveCompany" type="submit" class="btn btn-primary">Guardar</button>
+                </div>										 
+            </div>
+        </div>
+    </form>
+</div>
+

@@ -1,0 +1,78 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Ficha de cobro</title>
+
+    </head>
+
+    <body>
+        <table width="100%" height="100%" border="0">
+            <tr>
+                <td width="81%" height="96" valign="middle" bgcolor="#022543"><h1 align="center" style="color: #FFFFFF">Informe de pago del caso  {{caso.nombre}}</h1></td>
+                 {% if empresa.logo %}
+
+                     <td width="19%" valign="top"><img src="{{asset('bundles/app/images/'~empresa.logo)}}" width="341" height="112" /></td>
+                  {% else %}
+                      <td width="19%" valign="top"><img src="{{asset('bundles/app/images/pdf/logo.png')}}" width="341" height="112" /></td>
+                {% endif %}
+
+            </tr>
+            <tr>
+                <td height="73" rowspan="2" valign="middle" bgcolor="#FFFFFF">&nbsp;</td>
+                <td width="19%">&nbsp;</td>
+            </tr>
+            <tr>
+                <td><div align="center"><img src="{{asset('bundles/app/images/pdf/linea.gif')}}" alt="f" width="203" height="12" /></div></td>
+            </tr>
+            <tr>
+                <td height="143" valign="top"><div align="right" style="color: #666666;height:50px">{{empresa.nombre}} &gt;&gt;<span style="color: #000000;font-weight: bold;"> Nombre &nbsp; </span></div>
+                    <div align="right" style="color: #666666;height:50px">{{empresa.direccion}} &gt;&gt;<span style="color: #000000;font-weight: bold;"> Direcci&oacute;n</span></div>
+                    <div align="right" style="color: #666666;height:50px">{{empresa.representante}} &gt;&gt;<span style="color: #000000;font-weight: bold;"> Representante&nbsp;</span></div>
+                    <div align="right" style="color: #666666;height:50px">{{empresa.telefono}}&gt;&gt;<span style="color: #000000;font-weight: bold;"> Tel&eacute;fono</span></div>
+                    <div align="right" style="color: #666666;height:50px">{{empresa.correo}} &gt;&gt;<span style="color: #000000;font-weight: bold;"> Correo electr&oacute;nico</span></div></td>
+                <td valign="top"><h2 align="center"><br />
+                        <br />
+                        DATOS DE </h2>
+                    <h2 align="center">NUESTRA</h2>
+                    <h2 align="center"> EMPRESA<u> <br />
+                            <br />
+                            <br />
+                        </u><img src="{{asset('bundles/app/images/pdf/linea.gif')}}" width="206" height="10" /></h2></td>
+            </tr>
+            <tr>
+                <td><div align="right" style="color: #666666;height:50px">{{empresaCliente.nombre}} &gt;&gt;<span style="color: #000000;font-weight: bold;"> Nombre &nbsp;</span></div>
+                    <div align="right" style="color: #666666;height:50px">{{empresaCliente.direccion}} &gt;&gt;<span style="color: #000000;font-weight: bold;"> Direcci&oacute;n </span></div>
+                    <div align="right" style="color: #666666;height:50px">{{empresaCliente.telefono}}&gt;&gt;<span style="color: #000000;font-weight: bold;"> Tel&eacute;fono </span></div>
+                    <div align="right" style="color: #666666;height:50px">{{empresaCliente.correo}} &gt;&gt;<span style="color: #000000;font-weight: bold;"> Correo electr&oacute;nico </span></div></td>
+                <td><h2 align="center"><br />
+                        DATOS</h2>
+                    <h2 align="center"> DE SU</h2>
+                    <h2 align="center"> EMPRESA <br />
+                        <br />
+                        <br />
+                        <img src="{{asset('bundles/app/images/pdf/linea.gif')}}" alt="sds" width="206" height="10" /></h2></td>
+            </tr>
+            <tr>
+                <td valign="middle" ><div align="right" style="color: #666666;height:50px" >{{caso.nombre}} &gt;&gt; <span style="color: #000000;font-weight: bold;">Nombre </span></div>
+                    <div align="right" style="color: #666666;height:50px">{{caso.estado.nombre}} &gt;&gt; <span style="color: #000000;font-weight: bold;">Estado </span></div>
+                    <div align="right" style="color: #666666;height:50px">{{caso.honorarios}} &gt;&gt; <span style="color: #000000;font-weight: bold;">Cantidad total del caso</span></div>
+                    <div align="right" style="color: #666666;height:50px">${{payment.valorPagado}} &gt;&gt; <span style="color: #000000;font-weight: bold;">Cantidad a pagar en el pago actual</span></div>
+                    {%  if caso.getProximoPago %}
+                        <div align="right" style="color: #666666;height:50px">{{caso.getProximoPago}}&gt;&gt; <span style="color: #000000;font-weight: bold;">Fecha del pr&oacute;ximo pago </span></div> 
+                    {%  endif %}</td>
+
+                <td style="color: #000000;font-weight: bold;"><h2 align="center">&nbsp;</h2>
+                    <h2 align="center">DATOS </h2>
+                    <h2 align="center">DEL </h2>
+                    <h2 align="center">CASO<br />
+                    </h2>
+
+                    <h2 align="center"><br />
+                        <img src="{{asset('bundles/app/images/pdf/linea.gif')}}" alt="sds" width="206" height="10" /></h2></td>
+            </tr>
+
+        </table>
+
+    </body>
+</html>

@@ -1,0 +1,117 @@
+<div style="display: none;" class="modal fade in" id="addCompanyModal" tabindex="-1" role="dialog" aria-labelledby="addCompanyModalLabel" aria-hidden="true">
+    <form id="form-addCompany" name="form-addCompany" method="post" action="">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h3 class="modal-title" id="addCompanyModalLabel" align="center">Adicionar Empresa</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="row">											
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label>Nombre de la empresa o cliente</label><span class="required"> *</span>
+                                <div class="input-group col-xs-12">
+                                    <input class="form-control" name="nombre" title="Inserte el nombre de la Empresa o Cliente"  placeholder="Nombre" autocomplete="off" autofocus="">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Direcci&oacute;n de la empresa o cliente</label><span class="required"> *</span>
+                                <div class="input-group col-xs-12">
+                                    <input class="form-control" name="direccion" title="Inserte la direcci&oacute;n de la Empresa o Cliente"  placeholder="Direcci&oacute;n" autocomplete="off">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Breve descripci&oacute;n</label><span class="required"> *</span>
+                                <div class="input-group col-xs-12">
+                                    <textarea class="form-control" name="descripcion" rows="5" title="Inserte una breve descripci&oacute;n"  placeholder="Descripci&oacute;n"></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Tipo de cliente</label><span class="required"> *</span>
+                                <div class="input-group col-xs-12">
+                                    <select id="tipo_cliente" class="form-control" name="tipoCliente" title="Seleccione el tipo de cliente">
+                                        <option value="-1" selected="selected" >--Tipos de Clientes--</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Tipo de identificaci&oacute;n</label><span class="required"> *</span>
+                                <div class="input-group col-xs-12">
+                                    <select class="form-control" name="tipoIdentificacion" title="Seleccione el tipo de identificaci&oacute;n">
+                                        <option value="-1" selected="selected">--Tipo de Identificaci&oacute;n--</option>
+                                        <option value="Rud">Rud</option>
+                                        <option value="Cédula">C&eacute;dula</option>													
+                                        <option value="Pasaporte">Pasaporte</option>													
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>N&uacute;mero de identificaci&oacute;n</label><span class="required"> *</span>
+                                <div class="input-group col-xs-12">
+                                    <input class="form-control" name="numeroIdentificacion" title="Inserte el n&uacute;mero de identificaci&oacute;n" placeholder="N&uacute;mero de identificaci&oacute;n" autocomplete="off">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Tel&eacute;fono</label><span class="required"> *</span>
+                                <div class="input-group col-xs-12">
+                                    <input class="form-control" name="telefono" title="Inserte un tel&eacute;fono" placeholder="Tel&eacute;fono" autocomplete="off">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Correo electr&oacute;nico</label><span class="required"> *</span>
+                                <div class="input-group col-xs-12">
+                                    <input class="form-control" name="correo" title="Inserte un correo electr&oacute;nico" placeholder="Correo electr&oacute;nico" autocomplete="off">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            
+                            <div class="form-group">
+                                <label>Raz&oacute;n social</label>
+                                <div class="input-group col-xs-12">
+                                    <textarea class="form-control" name="razonSocial" rows="5" title="Inserte la raz&oacute;n social de la empresa" placeholder="Raz&oacute;n social"></textarea>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Representante</label>
+                                <div class="input-group col-xs-12">
+                                    <input class="form-control" name="representante" title="Inserte el nombre del representante de la Empresa o Cliente" placeholder="Nombre del representante" autocomplete="off">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Clave SRI</label><span class="required"> *</span>
+                                <div class="input-group col-xs-12">
+                                    <input class="form-control" name="claveSri" title="Inserte la clave SRI" placeholder="Clave SRI" autocomplete="off" >
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Ciudad</label><span class="required"> *</span>
+                                <div class="input-group col-xs-12">
+                                    <select id="ciudad-select" class="form-control" name="ciudad" title="Seleccione la ciudad a la que pertenece">
+                                        <option value="-1" selected="selected" >--Ciudades--</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Logo</label>
+                                <div class="input-group col-xs-12" style="max-width: 400px;">
+                                    <input type="file" name="import" id="import" class="filestyle">
+                                </div>
+                            </div>
+                        </div> 																																												                                                            
+                    </div> 
+                </div> 
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                    <button id="saveCompany" type="submit" class="btn btn-primary">Guardar</button>
+                </div>										 
+            </div>
+        </div>
+    </form>
+</div>
+

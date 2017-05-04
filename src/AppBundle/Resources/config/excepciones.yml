@@ -1,0 +1,73 @@
+excepciones:
+    E1:
+        mensaje: normalizer.bad.extension
+        descripcion:
+    E2:
+        mensaje: normalizer.not.found
+        descripcion:
+    E3:
+        mensaje: validator.not.found
+        descripcion:
+    E4:
+        mensaje: access.denied
+        descripcion:
+    E5:
+        mensaje: uknow.error
+        descripcion:
+    E6:
+        mensaje: object.not.found
+        descripcion:
+    E7:
+        mensaje: entity.not.found
+        descripcion:
+    E8:
+        mensaje: appbundle.not.configured
+        descripcion:
+    E9:
+        mensaje: entity.method.not.exist
+        descripcion:
+    E10:
+        mensaje: array.many.to.many.not.exist
+        descripcion:
+    E11:
+        mensaje: validation
+        descripcion:
+    E12:
+        mensaje: validator.not.found
+        descripcion:
+    E13:
+        mensaje: validator.bad.extension
+        descripcion:
+    E14:
+        mensaje: validator.bad.return
+        descripcion:
+    E15:
+        mensaje: validator.bad.params
+        descripcion:
+    23000:
+        mensaje: integrity.constraint.violation
+        descripcion:
+    23502:
+        mensaje: values.null
+        descripcion:
+    23503:
+        mensaje: reference.constraint.violation
+        descripcion:
+    23505:
+        mensaje: unique.violation
+        descripcion:
+    HV00N:
+        mensaje: conection.lost
+        descripcion:
+    28000:
+        mensaje: user.privileges
+        descripcion:
+    2F000:
+        mensaje: routines.exception
+        descripcion:
+    53300:
+        mensaje: many.conections
+        descripcion:
+    58000:
+        mensaje: database.error
+        descripcion:

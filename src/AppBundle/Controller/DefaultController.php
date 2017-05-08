@@ -30,10 +30,9 @@ class DefaultController extends BaseController {
         $totalCase = 0;
         $pendingByPayment = array();
         $garantedAllCase = $this->isGarantedInCurrentRequest('listAllCase', 'AGCaso');
-        $repoCase = $this->getRepo('AGCaso');
-        $result = null;
+        
         $user = $this->getUserOfCurrentRequest();
-        $empresa = $this->getRepo('AGEmpresa')->findOneBy(array('tipoCliente' => 3));
+        $empresa = $repoCompany->findOneBy(array('tipoCliente' => 3));
         if ($empresa && !empty($empresa->getLogo())) {
             $logo = '/bundles/app/images/' . $empresa->getLogo();
         }

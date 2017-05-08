@@ -34,7 +34,7 @@ class AGUsuarioRepository extends \AppBundle\Libs\Repository\BaseRepository {
             $qb->setParameter(4, 1);
 
             $result = $qb->getQuery()->getResult();
-
+            //echo $qb->getDQL();
             if (count($result) > 0) {
 
                 return true;

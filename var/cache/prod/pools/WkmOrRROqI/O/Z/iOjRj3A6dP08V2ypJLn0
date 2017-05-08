@@ -1,0 +1,4 @@
+<?php return array (
+  0 => 9223372036854775807,
+  1 => 'O:49:"Symfony\\Component\\Validator\\Mapping\\ClassMetadata":10:{s:11:"constraints";a:1:{i:0;O:58:"Symfony\\Bridge\\Doctrine\\Validator\\Constraints\\UniqueEntity":10:{s:7:"message";s:35:"Ya existe un usaurio con ese nombre";s:7:"service";s:29:"doctrine.orm.validator.unique";s:2:"em";N;s:11:"entityClass";N;s:16:"repositoryMethod";s:14:"validateUnique";s:6:"fields";a:1:{i:0;s:8:"username";}s:9:"errorPath";N;s:10:"ignoreNull";b:1;s:7:"payload";N;s:6:"groups";a:2:{i:0;s:7:"Default";i:1;s:9:"AGUsuario";}}}s:18:"constraintsByGroup";a:2:{s:7:"Default";a:1:{i:0;r:3;}s:9:"AGUsuario";a:1:{i:0;r:3;}}s:17:"traversalStrategy";i:1;s:7:"getters";a:0:{}s:13:"groupSequence";a:0:{}s:21:"groupSequenceProvider";b:0;s:7:"members";a:0:{}s:4:"name";s:26:"AppBundle\\Entity\\AGUsuario";s:10:"properties";a:0:{}s:12:"defaultGroup";s:9:"AGUsuario";}',
+);

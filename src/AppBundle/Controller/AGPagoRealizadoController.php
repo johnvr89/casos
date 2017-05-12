@@ -10,6 +10,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use AppBundle\Entity\AGPagoRealizado;
 
 class AGPagoRealizadoController extends BaseController {
 
@@ -276,6 +277,16 @@ class AGPagoRealizadoController extends BaseController {
             if ($data['tipoCobro'] == 2 && $payment->getTipoCobro()->getId() != 2) {
                 $saveUseCase = $this->saveModel('AGCaso', array('id' => $case->getId(), 'estado' => 5), array(), false);
             }
+            
+//            $payment->setValorPagado($data['valorPagado']);
+//            $payment->setCuenta($data['cuenta']);
+//            $payment->setFormaPago($data['formaPago']);
+//            $payment->setTipoCobro($data['tipoCobro']);            
+//            $payment->setFechaProximoCobro($data['fechaProximoCobro']);
+//            $em = $this->getDoctrine()->getManager();
+
+//            $em->persist($payment);
+//            $em->flush();
             $save = $this->saveModel('AGPagoRealizado', $data, array(), false);
 
             $repoDocument = $this->getRepo('AGDocumento');

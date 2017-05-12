@@ -18,17 +18,20 @@ class AGCasoController extends BaseController {
      * @Rest\Get("/api/caso")
      * @Method({"GET","OPTIONS"})
      */
-    public function getAllAction() {
+    public function getAllAction(Request $request) 
+    {
+        $session = $request->getSession();
+        $intIdEmpresa = $session->get('idEmpresa');
         $garanted = $this->isGarantedInCurrentRequest('listAllCase', 'AGCaso');
         $repoCase = $this->getRepo('AGCaso');
         $result = null;
-        $empresa = $this->getRepo('AGEmpresa')->findOneBy(array('tipoCliente' => 3));
-        if (!$empresa) {
+
+        if (!$intIdEmpresa) {
             return new View(array('success' => false, 'error' => 'No se ha registrado la empresa rectora.'), Response::HTTP_OK);
         }
         if ($garanted) {
 
-            $result = $repoCase->getPermissionCase(true, false, false, -1, $empresa->getId());
+            $result = $repoCase->getPermissionCase(true, false, false, -1, $intIdEmpresa);
             return new View($this->normalizeResult('AGCaso', $result), Response::HTTP_OK);
         }
         $garantedMyCase = $this->isGarantedInCurrentRequest('listMyCase', 'AGCaso');
@@ -36,15 +39,15 @@ class AGCasoController extends BaseController {
         $user = $this->getUserOfCurrentRequest();
         if ($user) {
             if ($garantedMyCase && $garantedIntermediaryCase) {
-                $result = $repoCase->getPermissionCase(false, true, true, $user->getId(), $empresa->getId());
+                $result = $repoCase->getPermissionCase(false, true, true, $user->getId(), $intIdEmpresa);
                 return new View($this->normalizeResult('AGCaso', $result), Response::HTTP_OK);
             }
             if ($garantedMyCase) {
-                $result = $repoCase->getPermissionCase(false, true, false, $user->getId(), $empresa->getId());
+                $result = $repoCase->getPermissionCase(false, true, false, $user->getId(), $intIdEmpresa);
                 return new View($this->normalizeResult('AGCaso', $result), Response::HTTP_OK);
             }
             if ($garantedIntermediaryCase) {
-                $result = $repoCase->getPermissionCase(false, false, true, $user->getId(), $empresa->getId());
+                $result = $repoCase->getPermissionCase(false, false, true, $user->getId(), $intIdEmpresa);
                 return new View($this->normalizeResult('AGCaso', $result), Response::HTTP_OK);
             }
         }

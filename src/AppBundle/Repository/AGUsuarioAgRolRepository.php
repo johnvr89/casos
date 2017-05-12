@@ -102,20 +102,19 @@ class AGUsuarioRepository extends \AppBundle\Libs\Repository\BaseRepository {
         return $qb->getQuery()->getResult();
     }
     
-    public function findUsersForRol($strRol) {
+    public function findUserForRol() {
         $qb = $this->_em->createQuery();
         
-        $sql = "  SELECT u.id, u.nombreinterfaz
+        $sql = "  SELECT u
                     FROM AppBundle:AGRol r,
-                         AppBundle:AGUsuarioAgRol ur,
-                         AppBundle:AGUsuario u
-                    WHERE r.nombre = :rol
+                      AppBundle:AGUsuarioAgRol ur,
+                      AppBundle:AGUsuario u
+                    WHERE r.nombre = 'Abogado'
                     AND ur.rolId  = r.id
                     AND u.id       = ur.usuarioId";
         
         $qb->setDQL($sql);
-        
-        $qb->setParameter('rol', $strRol);
+        //echo $query->getSQL(); die;
        
         return $qb->getResult();
     }    

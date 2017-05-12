@@ -27,7 +27,7 @@ class AGPagoRealizadoNormalizer extends AbstractNormalizer implements ContainerA
                 $obj['valor_pagado'] = $object->getValorPagado();
                 $fecha = $object->getFechaProximoCobro();
 
-                $obj['fecha_proximo_cobro'] = empty($fecha) ? '' : $fecha->format('d/m/Y');
+                $obj['fecha_proximo_cobro'] = empty($fecha) ? '' : $fecha->format('Y-m-d');
 
                 $obj['cuenta'] = $normalice->normalize('normalizer.agcuenta', $object->getCuenta(), CustomDecorator::DEFAULT_DECORATOR);
                 $obj['forma_pago'] = $normalice->normalize('normalizer.agformapago', $object->getFormaPago(), CustomDecorator::DEFAULT_DECORATOR);

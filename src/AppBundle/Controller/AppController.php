@@ -31,8 +31,10 @@ class AppController extends BaseController {
      * @Rest\Post("/api/token-authentication")
      * @Method({"POST","OPTIONS"})
      */
-    public function tokenAuthenticationAction(Request $request) {
-
+    public function tokenAuthenticationAction(Request $request) 
+    {
+        //segun el usuario carga la empresa
+        
         $username = $request->get('username');
 
         $password = $request->get('password');
@@ -55,6 +57,13 @@ class AppController extends BaseController {
         if ($result['success'] == false) {
             return new View($result, Response::HTTP_OK);
         }
+        
+        //creo variables de session
+         $session = $request->getSession();
+         $session->set('idEmpresa', $user->getEmpresa()->getId());
+         $session->set('user', $username);
+         $session->set('idUser', $user->getId());
+        
         return new View(array('success' => true, 'token' => $token, 'nombreinterfaz' => $user->getNombreinterfaz()), Response::HTTP_OK);
     }
 
@@ -84,12 +93,15 @@ class AppController extends BaseController {
         if (!$user) {
             return new View(array('success' => false, 'error' => 'Token inv&aacute;lido', 'code' => 3000), Response::HTTP_OK);
         }
-
-
+        
         $result = $this->saveModel('AGUsuario', array('id' => $user->getId(), 'token' => null));
         if ($result['success'] == false) {
             return new View($result, Response::HTTP_OK);
         }
+        
+        $session = $request->getSession();
+        $session->invalidate();
+        
         return new View(array('success' => true), Response::HTTP_OK);
     }
 

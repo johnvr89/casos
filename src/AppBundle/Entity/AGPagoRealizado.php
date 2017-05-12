@@ -47,7 +47,7 @@ class AGPagoRealizado {
      * @ORM\JoinColumn(
      *     name="id_cuenta",
      *     referencedColumnName="id",
-     *     nullable=false
+     *     nullable=true
      * )
      */
     private $cuenta;

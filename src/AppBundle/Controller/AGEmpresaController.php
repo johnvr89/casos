@@ -248,24 +248,43 @@ class AGEmpresaController extends BaseController {
         return new View($save, Response::HTTP_OK);
     }
 
-    /* a partir de aqui caso de uso nuevo de gestionar cliente */
+    /* a partir de aqui caso de uso nuevo de gestionar cliente
+     * 
+     * @author John Vera
+     * @version 1.1 12-05-2017 multiempresa
+     * 
+     *  */
 
     /**
      * @Rest\Get("/api/empresa/cliente/listar")
      * @Method({"GET","OPTIONS"})
      */
-    public function getCompanyClientAction() {
+    public function getCompanyClientAction(Request $request)
+    {
+        $session = $request->getSession();
+        $intIdEmpresa = $session->get('idEmpresa');
+        try
+        {
 
-        $user = $this->getUserOfCurrentRequest();
-        if ($user) {
             $repoCompany = $this->getRepo('AGEmpresa');
-            if ($this->hasRole('Administrador')) {
+
+            if($this->hasRole('Administrador'))
+            {
                 return new View($this->normalizeResult('AGempresa', $repoCompany->getAllClientList()), Response::HTTP_OK);
-            } else {
-                return new View($this->normalizeResult('AGempresa', $repoCompany->getAllClientList(false, $user->getId())), Response::HTTP_OK);
             }
-        } else {
-            return new View($this->returnSecurityViolationResponse(), Response::HTTP_OK);
+            else
+            {
+                $arrayCustomers = $repoCompany->findBy(array('empresaId' => $intIdEmpresa));
+                if(is_array($arrayCustomers))
+                {
+                    return new View($this->normalizeResult('AGempresa', $arrayCustomers), Response::HTTP_OK);
+                }
+            }
+        }
+        catch(\Exception $ex)
+        {
+            $strError = $ex->getMessage();
+            return new View($strError, Response::HTTP_OK);
         }
     }
 
@@ -275,9 +294,11 @@ class AGEmpresaController extends BaseController {
      */
     public function postClientAction(Request $request) {
         $data = $request->request->all();
-
+        $session = $request->getSession();
+        $intEmpresaId = $session->get('idEmpresa');
         $data = $data['company'];
         $data = (array) (json_decode($data));
+        $data['empresaId'] = $intEmpresaId;
         $files = $request->files->all();
         if (count($files) > 0) {
             $saveLogo = $this->get('importfileimage')->moveFile($request, true);

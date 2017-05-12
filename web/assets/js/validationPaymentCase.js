@@ -10,12 +10,7 @@ var paymentValidationEngine = function(id){
                 required: true,
                 currency:["$",false]
             },
-           
-            cuenta: {
-                required: true,
-                min:1
-            },
-           
+          
             formaPago: {
                 required: true,
                 min:1
@@ -33,10 +28,6 @@ var paymentValidationEngine = function(id){
                 required: "* Este campo es requerido",
                 currency:'Especifique una cantidad v&aacute;lida'
                 
-            },
-            cuenta: {
-                required: "* Este campo es requerido",
-                min: "Debe seleccionar una opci&oacute;n"
             },
             formaPago: {
                 required: "* Este campo es requerido",

@@ -125,14 +125,14 @@ $(document).ready(function()
         if ( response.success == true )
         {
             var user = response.data;
-            $("span#username-info").html("Usuario: " + user.username);
+            $("span#username-info").html("<i class='fa fa-user'></i> &nbsp;" + user.nombreinterfaz);
             
             if ( user.empresa.logo != "" && user.empresa.logo != undefined)
             {
                 $("#company-logo").attr('src', serviceaddress + '/bundles/app/images/' + user.empresa.logo);
             }
             
-            $("span.name-company-info h3").html(' ' + user.nombreinterfaz);
+            $("span.name-company-info h3").html(' ' + user.username);
             $("span.name-company-info span").html('<i class="fa fa-home"></i> ' + user.empresa.nombre );
             $("#company-info-email").html('<strong>Correo:</strong> ' + user.empresa.correo );
             $("#company-info-phone").html('<strong>Telefono:</strong> ' + user.empresa.telefono );

@@ -39,10 +39,18 @@ class AGUsuarioController extends BaseController {
      * @Method({"GET","OPTIONS"})
      */
     public function getAllIntermediaryAction() {
-
-        $repoUser = $this->getRepo('AGUsuario');
-        $result = $repoUser->findAllUserIntermediary();
-        return new View($this->normalizeResult('AGUsuario', $result), Response::HTTP_OK);
+        try
+        {
+            $repoUser = $this->getRepo('AGUsuario');
+            $result = $repoUser->findUsersForRol('Intermediario');         
+            $res = array('success' => true, 'data' => $result);
+        }
+        catch(\Exception $e)
+        {
+            $result = $e->getMessage();
+            $res = array('success' => false, 'data' => $result);
+        }
+        return new View($res, Response::HTTP_OK);
     }
     
      /**
@@ -50,10 +58,18 @@ class AGUsuarioController extends BaseController {
      * @Method({"GET","OPTIONS"})
      */
     public function getAllLawerAction() {
-
-        $repoUser = $this->getRepo('AGUsuario');
-        $result = $repoUser->findAllUserLawer();
-        return new View($this->normalizeResult('AGUsuario', $result), Response::HTTP_OK);
+        try
+        {
+            $repoUser = $this->getRepo('AGUsuario');
+            $result = $repoUser->findUsersForRol('Abogado');         
+            $res = array('success' => true, 'data' => $result);
+        }
+        catch(\Exception $e)
+        {
+            $result = $e->getMessage();
+            $res = array('success' => false, 'data' => $result);
+        }
+        return new View($res, Response::HTTP_OK);
     }
 
     /**

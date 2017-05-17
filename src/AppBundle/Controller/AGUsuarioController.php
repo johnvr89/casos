@@ -38,11 +38,13 @@ class AGUsuarioController extends BaseController {
      * @Rest\Get("/api/usuario/intermediario")
      * @Method({"GET","OPTIONS"})
      */
-    public function getAllIntermediaryAction() {
+    public function getAllIntermediaryAction(Request $request) {
+        $session = $request->getSession();
+        $idEmpresa = $session->get('idEmpresa');
         try
         {
             $repoUser = $this->getRepo('AGUsuario');
-            $result = $repoUser->findUsersForRol('Intermediario');         
+            $result = $repoUser->findUsersForRol('Intermediario', $idEmpresa);         
             $res = array('success' => true, 'data' => $result);
         }
         catch(\Exception $e)
@@ -57,11 +59,13 @@ class AGUsuarioController extends BaseController {
      * @Rest\Get("/api/usuario/abogado")
      * @Method({"GET","OPTIONS"})
      */
-    public function getAllLawerAction() {
+    public function getAllLawerAction(Request $request) {
+        $session = $request->getSession();
+        $idEmpresa = $session->get('idEmpresa');        
         try
         {
             $repoUser = $this->getRepo('AGUsuario');
-            $result = $repoUser->findUsersForRol('Abogado');         
+            $result = $repoUser->findUsersForRol('Abogado', $idEmpresa);         
             $res = array('success' => true, 'data' => $result);
         }
         catch(\Exception $e)

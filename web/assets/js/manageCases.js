@@ -169,7 +169,7 @@ var addModalCaseSubmit = function ()
                     {
                         $("#addCaseModal").modal('hide');
                         waitMeHide("wrapper");
-                        alertify.success("Elemento insertado satisfactoriamente");
+                        alertify.success("registro ingresado satisfactoriamente");
                         buildListCase();
                     }
                 }, false, true);

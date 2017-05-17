@@ -108,7 +108,7 @@ var addModalFeatureSubmit = function (id)
                 {
                     $("#addCaseFeaturesModal").modal('hide');
                     waitMeHide("wrapper");
-                    alertify.success("Elemento insertado satisfactoriamente");
+                    alertify.success("registro ingresado satisfactoriamente");
                     buildListFeature(id);
                 }
             }, false, true);

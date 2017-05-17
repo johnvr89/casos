@@ -5,7 +5,6 @@ namespace AppBundle\Repository;
 use AppBundle\Libs\TraitMyCase\ValidateEntity;
 
 use Doctrine\ORM\EntityRepository;
-use telconet\schemaBundle\DependencyInjection\BaseRepository;
 use Doctrine\ORM\Query\ResultSetMappingBuilder;
 use Doctrine\DBAL\Connection;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -53,11 +52,13 @@ class AGUsuarioRepository extends \AppBundle\Libs\Repository\BaseRepository {
         }
     }
 
-    public function getTotal() {
+    public function getTotal($intEmpresa) {
         $qb = $this->createQueryBuilder('entity');
         $qb->select('COUNT(entity.id)');
         $qb->andWhere($qb->expr()->eq('entity.visible', '?1'));
+        $qb->andWhere($qb->expr()->eq('entity.empresa', '?2'));
         $qb->setParameter(1, 1);
+        $qb->setParameter(2, $intEmpresa);
         return $qb->getQuery()->getSingleScalarResult();
     }
 
@@ -102,7 +103,7 @@ class AGUsuarioRepository extends \AppBundle\Libs\Repository\BaseRepository {
         return $qb->getQuery()->getResult();
     }
     
-    public function findUsersForRol($strRol) {
+    public function findUsersForRol($strRol, $intEmpresa) {
         $qb = $this->_em->createQuery();
         
         $sql = "  SELECT u.id, u.nombreinterfaz
@@ -111,11 +112,13 @@ class AGUsuarioRepository extends \AppBundle\Libs\Repository\BaseRepository {
                          AppBundle:AGUsuario u
                     WHERE r.nombre = :rol
                     AND ur.rolId  = r.id
+                    AND u.empresa = :empresa
                     AND u.id       = ur.usuarioId";
         
         $qb->setDQL($sql);
         
         $qb->setParameter('rol', $strRol);
+        $qb->setParameter('empresa', $intEmpresa);
        
         return $qb->getResult();
     }    

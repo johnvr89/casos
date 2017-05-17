@@ -4,6 +4,9 @@ namespace AppBundle\Repository;
 
 use AppBundle\Libs\Normalizer\ResultDecorator;
 use AppBundle\Libs\TraitMyCase\GetMyResorces;
+use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\Query\ResultSetMappingBuilder;
+use Doctrine\ORM\Query\Parameter;
 
 /**
  * AGPagoRealizadoRepository
@@ -29,8 +32,7 @@ class AGPagoRealizadoRepository extends \AppBundle\Libs\Repository\BaseRepositor
         return $qb->getQuery()->getResult();
     }
 
-    public function getPaymentOutDate($all = true, $cases = array()) {
-
+    public function getPaymentOutDate($all = true, $cases = array(), $intEmpresa) {
 
         $qb1 = $this->createQueryBuilder('payment');
         $qb1->select('MAX(payment.id) AS id');
@@ -60,6 +62,13 @@ class AGPagoRealizadoRepository extends \AppBundle\Libs\Repository\BaseRepositor
         $qb->where($qb->expr()->in('payment.id', $ids));
         $qb->andWhere($qb->expr()->in('estado.id', array(2, 3, 4)));
         $qb->andWhere($qb->expr()->eq('payment.visible', '?10'));
+        
+        if($intEmpresa > 0)
+        {
+            $qb->andWhere($qb->expr()->eq('caso.empresaRectora', '?1'));
+            $qb->setParameter(1, $intEmpresa);
+        }           
+        
         $qb->setParameter(10, 1);
         if (!$all) {
             if (count($cases) == 0) {
@@ -71,7 +80,7 @@ class AGPagoRealizadoRepository extends \AppBundle\Libs\Repository\BaseRepositor
         return $qb->getQuery()->getResult();
     }
 
-    public function getCaseWithPaymentOutDate($all = true, $cases = array()) {
+    public function getCaseWithPaymentOutDate($all = true, $cases = array(), $intEmpresa) {
 
         $qb1 = $this->createQueryBuilder('payment');
         $qb1->select('MAX(payment.id) AS id');
@@ -102,6 +111,12 @@ class AGPagoRealizadoRepository extends \AppBundle\Libs\Repository\BaseRepositor
         $qb->andWhere($qb->expr()->in('estado.id', array(2, 3, 4)));
         $qb->andWhere($qb->expr()->eq('payment.visible', '?10'));
         $qb->setParameter(10, 1);
+        if($intEmpresa > 0)
+        {
+            $qb->andWhere($qb->expr()->eq('caso.empresaRectora', '?1'));
+            $qb->setParameter(1, $intEmpresa);
+        }                
+        
         $qb->setFirstResult(0);
         $qb->setMaxResults(10);
 
@@ -127,7 +142,8 @@ class AGPagoRealizadoRepository extends \AppBundle\Libs\Repository\BaseRepositor
         return $cases;
     }
 
-    public function getClientPaymentOutDate($initialDate, $endDate, $all, $filterById = array()) {
+    public function getClientPaymentOutDate($initialDate, $endDate, $intEmpresa, $filterById = array()) 
+    {
 
         $initial = \DateTime::createFromFormat('Y-m-d', $initialDate);
         $end = \DateTime::createFromFormat('Y-m-d', $endDate);
@@ -162,6 +178,13 @@ class AGPagoRealizadoRepository extends \AppBundle\Libs\Repository\BaseRepositor
         $qb->andWhere($qb->expr()->in('estado.id', array(2, 3, 4)));
         $qb->andWhere($qb->expr()->eq('payment.visible', '?10'));
         $qb->setParameter(10, 1);
+        
+        if($intEmpresa > 0)
+        {
+            $qb->andWhere($qb->expr()->eq('caso.empresaRectora', '?1'));
+            $qb->setParameter(1, $intEmpresa);
+        }
+        
         if (count($filterById) > 0) {
             $qb->andWhere($qb->expr()->in('caso.id', $filterById));
         }
@@ -184,5 +207,26 @@ class AGPagoRealizadoRepository extends \AppBundle\Libs\Repository\BaseRepositor
         }
         return $client;
     }
+    
+    
+    public function findPayByParams($arrayParams) {
+        
+        $intEmpresa = $arrayParams['intEmpresa'];
+        
+        $qb = $this->_em->createQuery();
+        
+        $sql = "  SELECT s
+                    FROM AppBundle:AGPagoRealizado s,
+                         AppBundle:AGCaso c
+                    WHERE s.caso = c.id 
+                    AND c.empresa = :empresa
+                    ORDER BY s.fechaProximoCobro DESC";
+        
+        $qb->setDQL($sql);
+        
+        $qb->setParameter('empresa', $intEmpresa);
+       
+        return $qb->getResult();
+    }         
 
 }

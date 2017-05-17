@@ -108,7 +108,7 @@ var addModalRoleSubmit = function ()
                 {
                     $("#addRoleModal").modal('hide');
                     waitMeHide("wrapper");
-                    alertify.success("Elemento insertado satisfactoriamente");
+                    alertify.success("registro ingresado satisfactoriamente");
                     buildListRole();
                 }
             }, false, true);

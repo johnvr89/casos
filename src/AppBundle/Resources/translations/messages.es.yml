@@ -1,5 +1,6 @@
 E4.: Acceso denegado al sistema.
 E5: Error desconocido en la base de datos.
+ESYSTEM: Ooops! Error del sistema, Notificar.
 23000: Error de integridad referencial en la base de datos.
 23502: Existen valores nulos en la operación.
 23503: El elemento que intenta eliminar está siendo usado en el sistema.

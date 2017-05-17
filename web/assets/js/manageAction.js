@@ -83,7 +83,7 @@ var addModalActionSubmit = function ()
                 {
                     $("#addActionModal").modal('hide');
                     waitMeHide("wrapper");
-                    alertify.success("Elemento insertado satisfactoriamente");
+                    alertify.success("registro ingresado satisfactoriamente");
                     buildListAction();
                 }
             },false, true);

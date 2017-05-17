@@ -59,10 +59,14 @@ class AGCasoController extends BaseController {
      * @Method({"GET","OPTIONS"})
      */
     public function getReportCaseAction(Request $request) {
+        
+        $session = $request->getSession();
+        $intEmpresa = $session->get('idEmpresa');
+        
         $garanted = $this->isGarantedInCurrentRequest('listAllCase', 'AGCaso');
         $repoCase = $this->getRepo('AGCaso');
         $result = null;
-        $empresa = $this->getRepo('AGEmpresa')->findOneBy(array('tipoCliente' => 3));
+        $empresa = $this->getRepo('AGEmpresa')->find($intEmpresa);
 
 
         if (!$empresa) {
@@ -152,13 +156,14 @@ class AGCasoController extends BaseController {
      * @Method({"POST","OPTIONS"})
      */
     public function postAction(Request $request) {
-
+        $session = $request->getSession();
+        $intIdEmpresa = $session->get('idEmpresa');
 
         $data = $request->request->all();
         $userRepo = $this->getRepo('AGUsuario');
 
 
-        $empresa = $this->getRepo('AGEmpresa')->findOneBy(array('tipoCliente' => 3));
+        $empresa = $this->getRepo('AGEmpresa')->find($intIdEmpresa);
         $caseRepo = $this->getRepo('AGCaso');
         $case = $caseRepo->findOneBy(array('nombre' => $data['nombre'], 'visible' => 1));
         if ($case) {

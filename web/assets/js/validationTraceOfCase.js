@@ -16,10 +16,6 @@ var traceValidationEngine = function (id) {
             descripcion: {
                 required: true,
                 minlength: 1
-            },
-            observacion: {
-                required: true,
-                minlength: 1
             }
         },
         messages: {

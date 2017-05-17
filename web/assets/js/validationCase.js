@@ -13,11 +13,6 @@ var caseValidationEngine = function(id){
                 letterspacenumber: true
 
             },
-            observacion: {
-                required: true,
-                letterspacenumber: true
-
-            },
             resolucion: {
                 required: true,
                 letterspacenumber: true

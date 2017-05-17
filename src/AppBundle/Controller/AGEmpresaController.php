@@ -86,7 +86,8 @@ class AGEmpresaController extends BaseController {
         $idEmpresa = $session->get('idEmpresa');     
         try
         {
-            $result = $this->getRepo('AGEmpresa')->getAllClient($idEmpresa);
+            //$result = $this->getRepo('AGEmpresa')->getAllClient($idEmpresa);
+            $result = $this->getRepo('AGEmpresa')->findBy(array('empresaId'=> $idEmpresa, 'visible' => 1));
             return new View($this->normalizeResult('AGEmpresa', $result), Response::HTTP_OK);
        
         } catch (\Exception $ex) {
@@ -273,7 +274,7 @@ class AGEmpresaController extends BaseController {
     public function getCompanyClientAction(Request $request)
     {
         $session = $request->getSession();
-        $intIdEmpresa = $session->get('idEmpresa');
+        $idEmpresa = $session->get('idEmpresa');
         try
         {
 
@@ -284,12 +285,11 @@ class AGEmpresaController extends BaseController {
                 return new View($this->normalizeResult('AGempresa', $repoCompany->getAllClientList()), Response::HTTP_OK);
             }
             else
-            {
-                $arrayCustomers = $repoCompany->findBy(array('empresaId' => $intIdEmpresa));
-                if(is_array($arrayCustomers))
-                {
-                    return new View($this->normalizeResult('AGempresa', $arrayCustomers), Response::HTTP_OK);
-                }
+            {   
+                $arrayCustomers = $repoCompany->findBy(array('empresaId'=> $idEmpresa, 'visible' => 1));
+                
+                return new View($this->normalizeResult('AGempresa', $arrayCustomers), Response::HTTP_OK);
+
             }
         }
         catch(\Exception $ex)

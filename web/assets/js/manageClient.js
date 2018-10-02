@@ -101,7 +101,7 @@ var convertFile = function () {
         size: "sm",
         iconName: "glyphicon glyphicon-picture"
     });
-    $('input.filestyle').attr('accept', 'image/*');
+    $('input.filestyle').attr('accept', 'jpg|jpeg|pdf');
 }
 
 var addModalClientCompany = function ()

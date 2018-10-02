@@ -254,7 +254,7 @@ var convertFile = function () {
     $(":file").filestyle({
         buttonName: "btn-info",
         buttonText: 'Buscar',
-        placeholder: 'No hay fichero seleccionado',
+        placeholder: 'No hay FICHERO seleccionado',
         buttonBefore: true,
         size: "sm",
         iconName: "glyphicon glyphicon-picture"

@@ -17,23 +17,37 @@ class AGSeguimientoController extends BaseController {
      * @Rest\Get("/api/seguimiento")
      * @Method({"GET","OPTIONS"})
      */
-    public function getAllAction() {
+    public function getAllAction(Request $request)
+    {
+        $session = $request->getSession();
+        try
+        {
+            $garantedAll = $this->isGarantedInCurrentRequest('listAllTrace', 'AGSeguimiento');
+            if($garantedAll)
+            {
+                $arrayParams['intEmpresa'] = $session->get('idEmpresa');
+                $arrayResult = $this->getRepo('AGSeguimiento')->findTraceByParams($arrayParams);
+                return new View($this->normalizeResult('AGSeguimiento', $arrayResult), Response::HTTP_OK);
+            }
+            $user = $this->getUserOfCurrentRequest();
+            if(!$user)
+            {
+                return new View($this->returnDeniedResponse(), Response::HTTP_OK);
+            }
 
-        $garantedAll = $this->isGarantedInCurrentRequest('listAllTrace', 'AGSeguimiento');
-        if ($garantedAll) {
-            return new View($this->getAllDataOfModel('AGSeguimiento'), Response::HTTP_OK);
-        }
-        $user = $this->getUserOfCurrentRequest();
-        if (!$user) {
+            $garantedMyTrace = $this->isGarantedInCurrentRequest('listMyCaseTrace', 'AGSeguimiento');
+            if($garantedMyTrace)
+            {
+                $result = $this->getRepo('AGSeguimiento')->getResosurces($user->getToken());
+                return new View($this->normalizeResult('AGSeguimiento', $result), Response::HTTP_OK);
+            }
             return new View($this->returnDeniedResponse(), Response::HTTP_OK);
         }
-
-        $garantedMyTrace = $this->isGarantedInCurrentRequest('listMyCaseTrace', 'AGSeguimiento');
-        if ($garantedMyTrace) {
-            $result = $this->getRepo('AGSeguimiento')->getResosurces($user->getToken());
-            return new View($this->normalizeResult('AGSeguimiento', $result), Response::HTTP_OK);
+        catch(\Exception $ex)
+        {
+            error_log($ex->getMessage());
+            return new View(array('success' => false, 'error' => $this->get('translator')->trans('ESYSTEM')));
         }
-        return new View($this->returnDeniedResponse(), Response::HTTP_OK);
     }
 
     /**

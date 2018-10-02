@@ -129,7 +129,7 @@ var addModalAccountSubmit = function ()
                 {
                     $("#addAccountModal").modal('hide');
                     waitMeHide("wrapper");
-                    alertify.success("Elemento insertado satisfactoriamente");
+                    alertify.success("registro ingresado satisfactoriamente");
                     buildListAccount();
                 }
             }, false, true);

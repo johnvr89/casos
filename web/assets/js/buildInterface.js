@@ -147,7 +147,7 @@ var buildStaticCombo = function (propertyId, propertyName, data, idComboInject) 
 
 var buildDetail = function (id, totalColumn, configColumns, idInject) {
 
-
+    
     var obj = controller.getData(id);
     var content = '<div class="row">';
     var number = 0;
@@ -160,6 +160,7 @@ var buildDetail = function (id, totalColumn, configColumns, idInject) {
     for (var i = 0; i < totalColumn; i++) {
         body += '<div class="col-md-' + number + '"' + '>';
         configColumns[i].forEach(function (t, index, array) {
+            //console.log(t);
             if (index > 0) {
                 body += '<div style="height:10px;" class="col-md-12"></div>';
             }

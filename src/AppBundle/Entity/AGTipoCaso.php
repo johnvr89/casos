@@ -36,6 +36,13 @@ class AGTipoCaso {
      * @ORM\Column(name="descripcion", type="string", length=255)
      */
     private $descripcion;
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="empresa_id", type="integer")
+     */
+    private $empresaId;    
 
     /**
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\AGCaso", mappedBy="tipocaso")
@@ -143,6 +150,28 @@ class AGTipoCaso {
      */
     public function getDescripcion() {
         return $this->descripcion;
+    }
+    
+    /**
+     * Set empresaId
+     *
+     * @param integer $empresaId
+     *
+     * @return AGTipoCaso
+     */
+    public function setEmpresaId($empresaId) {
+        $this->empresaId = $empresaId;
+
+        return $this;
+    }
+
+    /**
+     * Get empresaId
+     *
+     * @return integer
+     */
+    public function getEmpresaId() {
+        return $this->empresaId;
     }
 
     /**

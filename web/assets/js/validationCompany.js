@@ -17,10 +17,6 @@ var companyValidationEngine = function(id){
                 required: true,
                 minlength: 1
             },
-            descripcion: {
-                required: true,
-                minlength: 1
-            },
             tipoIdentificacion: {
                 required: true,
                  selectionrequired:true
@@ -29,19 +25,12 @@ var companyValidationEngine = function(id){
                 required: true,
                 digits: true
             },
-            telefono: {
-                required: true,
-                digits: 1
-            },
             correo: {
                 required: true,
                 email: true
             },
             razonSocial: {
                 minlength: 2
-            },
-            claveSri: {
-                required: true
             },
             representante: {
                 minlength: 2

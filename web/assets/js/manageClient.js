@@ -152,7 +152,7 @@ var addModalClientCompanySubmit = function ()
                 {
                     $("#addCompanyModal").modal('hide');
                     waitMeHide("wrapper");
-                    alertify.success("Elemento insertado satisfactoriamente");
+                    alertify.success("registro ingresado satisfactoriamente");
                     buildListClientManagement();
                 }
             }, true,true);

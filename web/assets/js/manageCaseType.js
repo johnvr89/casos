@@ -106,7 +106,7 @@ var addModalCaseTypeSubmit = function ()
                 {
                     $("#addCaseTypeModal").modal('hide');
                     waitMeHide("wrapper");
-                    alertify.success("Elemento insertado satisfactoriamente");
+                    alertify.success("registro ingresado satisfactoriamente");
                     buildListCaseType();
                 }
             }, false, true);

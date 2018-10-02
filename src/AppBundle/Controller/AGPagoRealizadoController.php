@@ -10,6 +10,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use AppBundle\Entity\AGPagoRealizado;
 
 class AGPagoRealizadoController extends BaseController {
 
@@ -17,35 +18,52 @@ class AGPagoRealizadoController extends BaseController {
      * @Rest\Get("/api/pagorealizado")
      * @Method({"GET","OPTIONS"})
      */
-    public function getAllAction() {
-        $garantedAll = $this->isGarantedInCurrentRequest('listAllPayment', 'AGPagoRealizado');
+    public function getAllAction(Request $request) {
+        $session = $request->getSession();
 
-        if ($garantedAll) {
-            $result = $this->getRepo('AGPagoRealizado')->findBy(array(), array('fechaProximoCobro' => 'DESC'));
-            return new View($this->normalizeResult('AGPagoRealizado', $result), Response::HTTP_OK);
-        }
-        $user = $this->getUserOfCurrentRequest();
-        if (!$user) {
+        try
+        {
+            $garantedAll = $this->isGarantedInCurrentRequest('listAllPayment', 'AGPagoRealizado');
+
+            if($garantedAll)
+            {
+                $arrayParams['intEmpresa'] = $session->get('idEmpresa');
+                $arrayResult = $this->getRepo('AGPagoRealizado')->findPayByParams($arrayParams);
+                return new View($this->normalizeResult('AGPagoRealizado', $arrayResult), Response::HTTP_OK);
+
+            }
+            $user = $this->getUserOfCurrentRequest();
+            if(!$user)
+            {
+                return new View($this->returnDeniedResponse(), Response::HTTP_OK);
+            }
+
+            $garantedMyPayment = $this->isGarantedInCurrentRequest('listMyCasePayment', 'AGPagoRealizado');
+            if($garantedMyPayment)
+            {
+                $result = $this->getRepo('AGPagoRealizado')->getResosurces($user->getToken());
+                return new View($this->normalizeResult('AGPagoRealizado', $result), Response::HTTP_OK);
+            }
             return new View($this->returnDeniedResponse(), Response::HTTP_OK);
         }
-
-        $garantedMyPayment = $this->isGarantedInCurrentRequest('listMyCasePayment', 'AGPagoRealizado');
-        if ($garantedMyPayment) {
-            $result = $this->getRepo('AGPagoRealizado')->getResosurces($user->getToken());
-            return new View($this->normalizeResult('AGPagoRealizado', $result), Response::HTTP_OK);
+        catch(\Exception $ex)
+        {
+            error_log($ex->getMessage());
+            return new View(array('success' => false, 'error' => $this->get('translator')->trans('ESYSTEM')));            
         }
-        return new View($this->returnDeniedResponse(), Response::HTTP_OK);
     }
 
     /**
      * @Rest\Get("/api/pagosatrazados")
      * @Method({"GET","OPTIONS"})
      */
-    public function getAllOutDateAction() {
+    public function getAllOutDateAction(Request $request) {
+        $session = $request->getSession();
+        $intEmpresa = $session->get('idEmpresa');
         $garantedAll = $this->isGarantedInCurrentRequest('listAllPaymentOutDate', 'AGPagoRealizado');
 
         if ($garantedAll) {
-            $result = $this->getRepo('AGPagoRealizado')->getPaymentOutDate(true);
+            $result = $this->getRepo('AGPagoRealizado')->getPaymentOutDate(true, $array, $intEmpresa);
             return new View($this->normalizeResult('AGPagoRealizado', $result), Response::HTTP_OK);
         }
         $mainCompany = $this->getRepo('AGEmpresa')->getMainCompanyClient();
@@ -276,6 +294,16 @@ class AGPagoRealizadoController extends BaseController {
             if ($data['tipoCobro'] == 2 && $payment->getTipoCobro()->getId() != 2) {
                 $saveUseCase = $this->saveModel('AGCaso', array('id' => $case->getId(), 'estado' => 5), array(), false);
             }
+            
+//            $payment->setValorPagado($data['valorPagado']);
+//            $payment->setCuenta($data['cuenta']);
+//            $payment->setFormaPago($data['formaPago']);
+//            $payment->setTipoCobro($data['tipoCobro']);            
+//            $payment->setFechaProximoCobro($data['fechaProximoCobro']);
+//            $em = $this->getDoctrine()->getManager();
+
+//            $em->persist($payment);
+//            $em->flush();
             $save = $this->saveModel('AGPagoRealizado', $data, array(), false);
 
             $repoDocument = $this->getRepo('AGDocumento');

@@ -38,22 +38,42 @@ class AGUsuarioController extends BaseController {
      * @Rest\Get("/api/usuario/intermediario")
      * @Method({"GET","OPTIONS"})
      */
-    public function getAllIntermediaryAction() {
-
-        $repoUser = $this->getRepo('AGUsuario');
-        $result = $repoUser->findAllUserIntermediary();
-        return new View($this->normalizeResult('AGUsuario', $result), Response::HTTP_OK);
+    public function getAllIntermediaryAction(Request $request) {
+        $session = $request->getSession();
+        $idEmpresa = $session->get('idEmpresa');
+        try
+        {
+            $repoUser = $this->getRepo('AGUsuario');
+            $result = $repoUser->findUsersForRol('Intermediario', $idEmpresa);         
+            $res = array('success' => true, 'data' => $result);
+        }
+        catch(\Exception $e)
+        {
+            $result = $e->getMessage();
+            $res = array('success' => false, 'data' => $result);
+        }
+        return new View($res, Response::HTTP_OK);
     }
     
      /**
      * @Rest\Get("/api/usuario/abogado")
      * @Method({"GET","OPTIONS"})
      */
-    public function getAllLawerAction() {
-
-        $repoUser = $this->getRepo('AGUsuario');
-        $result = $repoUser->findAllUserLawer();
-        return new View($this->normalizeResult('AGUsuario', $result), Response::HTTP_OK);
+    public function getAllLawerAction(Request $request) {
+        $session = $request->getSession();
+        $idEmpresa = $session->get('idEmpresa');        
+        try
+        {
+            $repoUser = $this->getRepo('AGUsuario');
+            $result = $repoUser->findUsersForRol('Abogado', $idEmpresa);         
+            $res = array('success' => true, 'data' => $result);
+        }
+        catch(\Exception $e)
+        {
+            $result = $e->getMessage();
+            $res = array('success' => false, 'data' => $result);
+        }
+        return new View($res, Response::HTTP_OK);
     }
 
     /**

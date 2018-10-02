@@ -159,13 +159,21 @@ abstract class BaseRepository extends EntityRepository {
                     $mapingField = $meta->getFieldMapping($property);
                     $type = @$mapingField['type'];
 
-
-
-                    if ( $type == 'date') {
+                    if ( $type == 'date') {                        
+                        
                         $value = \DateTime::createFromFormat('Y-m-d', $value);
+                        
+                        if(!$value)
+                        {
+                            error_log(' El formato de la fecha es incorrecto debe ser Y-m-d ');
+                        }
                     }
                      if ($type == 'datetime') {
                         $value = \DateTime::createFromFormat('Y-m-d H:i:s', $value);
+                        if(!$value)
+                        {
+                            error_log(' El formato de la fecha es incorrecto debe ser Y-m-d ');
+                        }                        
                     }
 
                     $object->$method($value);
@@ -179,21 +187,24 @@ abstract class BaseRepository extends EntityRepository {
                     $method = 'set' . Inflector::classify($property);
                     $v = null;
                     if ($value != null && is_numeric($value))
-                        $v = $this->_em->getRepository($map['targetEntity'])->find($value);
-                    if (method_exists($object, $method)) {
-                        if ($v != NULL) {
-                            $object->$method($v);
-                        } else {
-                            //si la relacion permite nulo y en el objeto a setear viene nulo se le asigna
-                            if (is_array(@$map['joinColumns']) && count($map['joinColumns']) == 1) {
-                                if (@$map['joinColumns'][0]['nullable']) {
+                        $v = $this->_em->getRepository($map['targetEntity'])->find($value);                    
+                        if(is_object($v))
+                        {
+                            if (method_exists($object, $method)) {
+                                if ($v != NULL) {
                                     $object->$method($v);
+                                } else {
+                                    //si la relacion permite nulo y en el objeto a setear viene nulo se le asigna
+                                    if (is_array(@$map['joinColumns']) && count($map['joinColumns']) == 1) {
+                                        if (@$map['joinColumns'][0]['nullable']) {
+                                            $object->$method($v);
+                                        }
+                                    }
                                 }
+                            } else {
+                                throw new LocalException("E9", array($method, $class));
                             }
                         }
-                    } else {
-                        throw new LocalException("E9", array($method, $class));
-                    }
                 } /* relacion M-N con objetos ya existentes */ else if ($map['type'] == 8) {
                     $method = Inflector::singularize('add' . Inflector::classify($property));
                     if (!method_exists($object, $method)) {

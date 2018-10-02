@@ -197,7 +197,7 @@ var executeAddPayment = function (data, id, totalPayment, file,honorarios) {
         {
             $("#addPaymentModal").modal('hide');
             waitMeHide("wrapper");
-            alertify.success("Elemento insertado satisfactoriamente");
+            alertify.success("registro ingresado satisfactoriamente");
              $('#porpagar').html( 'Cantidad por pagar: $'+(parseInt(honorarios) - parseInt(totalPayment)-parseInt(data.valorPagado)))  ;
             buildListPaymentCase(id);
             totalPayment += data.valorPagado;

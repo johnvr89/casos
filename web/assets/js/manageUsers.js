@@ -110,7 +110,7 @@ var addModalUserSubmit = function ()
                 {
                     $("#addUserModal").modal('hide');
                     waitMeHide("wrapper");
-                    alertify.success("Elemento insertado satisfactoriamente");
+                    alertify.success("registro ingresado satisfactoriamente");
                     buildListUsers();
                 }
             }, false, true);

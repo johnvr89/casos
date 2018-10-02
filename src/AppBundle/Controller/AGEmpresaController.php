@@ -37,8 +37,12 @@ class AGEmpresaController extends BaseController {
      * @Method({"GET","OPTIONS"})
      */
     public function getReportClientCaseAction(Request $request) {
+        
+        $session = $request->getSession();
+        $intEmpresa = $session->get('idEmpresa');        
+        
         $garanted = $this->isGarantedInCurrentRequest('listAllCase', 'AGCaso');
-        $repoCompany = $this->getRepo('AGCaso');
+
         $result = null;
         $repoCompany = $this->getRepo('AGEmpresa');
         $client = $request->get('cliente');
@@ -49,7 +53,7 @@ class AGEmpresaController extends BaseController {
         $startDate = $request->get('inicio');
         $endDate = $request->get('fin');
         if ($garanted) {
-            $result = $repoCompany->getClientCaseReport(true, false, false, $startDate, $endDate, $client, $lawer, $intermediary, $state, $caseType);
+            $result = $repoCompany->getClientCaseReport($intEmpresa, true, false, false, $startDate, $endDate, $client, $lawer, $intermediary, $state, $caseType);
 
             return new View($result, Response::HTTP_OK);
         }
@@ -58,15 +62,15 @@ class AGEmpresaController extends BaseController {
         $user = $this->getUserOfCurrentRequest();
         if ($user) {
             if ($garantedMyCase && $garantedIntermediaryCase) {
-                $result = $repoCompany->getClientCaseReport(true, false, false, $startDate, $endDate, $client, $user->getId(), $user->getId(), $state, $caseType);
+                $result = $repoCompany->getClientCaseReport($intEmpresa, true, false, false, $startDate, $endDate, $client, $user->getId(), $user->getId(), $state, $caseType);
                 return new View($this->normalizeResult('AGCaso', $result), Response::HTTP_OK);
             }
             if ($garantedMyCase) {
-                $result = $repoCompany->getClientCaseReport(true, false, false, $startDate, $endDate, $client, $user->getId(), $intermediary, $state, $caseType);
+                $result = $repoCompany->getClientCaseReport($intEmpresa, true, false, false, $startDate, $endDate, $client, $user->getId(), $intermediary, $state, $caseType);
                 return new View($result, Response::HTTP_OK);
             }
             if ($garantedIntermediaryCase) {
-                $result = $repoCompany->getClientCaseReport(true, false, false, $startDate, $endDate, $client, $lawer, $user->getId(), $state, $caseType);
+                $result = $repoCompany->getClientCaseReport($intEmpresa, true, false, false, $startDate, $endDate, $client, $lawer, $user->getId(), $state, $caseType);
                 return new View($result, Response::HTTP_OK);
             }
         }
@@ -77,9 +81,20 @@ class AGEmpresaController extends BaseController {
      * @Rest\Get("/api/empresa/todosclientes")
      * @Method({"GET","OPTIONS"})
      */
-    public function getAllClientAction() {
-        $result = $this->getRepo('AGEmpresa')->getAllClient();
-        return new View($this->normalizeResult('AGEmpresa', $result), Response::HTTP_OK);
+    public function getAllClientAction(Request $request) {
+        $session = $request->getSession();
+        $idEmpresa = $session->get('idEmpresa');     
+        try
+        {
+            //$result = $this->getRepo('AGEmpresa')->getAllClient($idEmpresa);
+            $result = $this->getRepo('AGEmpresa')->findBy(array('empresaId'=> $idEmpresa, 'visible' => 1));
+            return new View($this->normalizeResult('AGEmpresa', $result), Response::HTTP_OK);
+       
+        } catch (\Exception $ex) {
+            error_log($ex->getMessage());
+            return new View(array('success' => false, 'error' => $this->get('translator')->trans('ESYSTEM')));
+        }
+       
     }
 
     /**
@@ -126,11 +141,14 @@ class AGEmpresaController extends BaseController {
      * @Method({"GET","OPTIONS"})
      */
     public function getClientForPayment(Request $request) {
-        $mainCompany = $this->getRepo('AGEmpresa')->getMainCompanyClient();
+        
+        $session = $request->getSession();
+        $intEmpresa = $session->get('idEmpresa');
+        
+        $mainCompany = $this->getRepo('AGEmpresa')->find($intEmpresa);
         if (count($mainCompany) == 0) {
             return new View(array('success' => false, 'error' => 'No se ha insertado una empresa rectora.'), Response::HTTP_OK);
         }
-        $mainCompany = $mainCompany[0];
 
         $garanted = $this->isGarantedInCurrentRequest('listAllCase', 'AGCaso');
 
@@ -139,7 +157,7 @@ class AGEmpresaController extends BaseController {
         $data = $request->query->all();
         $ids = array();
         if ($garanted) {
-            $result = $this->getRepo('AGPagoRealizado')->getClientPaymentOutDate($data['inicio'], $data['fin'], true);
+            $result = $this->getRepo('AGPagoRealizado')->getClientPaymentOutDate($data['inicio'], $data['fin'], $intEmpresa);
             return new View(array('success' => true, 'data' => $result), Response::HTTP_OK);
         }
 
@@ -159,7 +177,7 @@ class AGEmpresaController extends BaseController {
         if (count($ids) == 0) {
             return new View(array('success' => true, 'data' => array()), Response::HTTP_OK);
         }
-        $result = $this->getRepo('AGPagoRealizado')->getClientPaymentOutDate($data['inicio'], $data['fin'], false, $ids);
+        $result = $this->getRepo('AGPagoRealizado')->getClientPaymentOutDate($data['inicio'], $data['fin'], $intEmpresa, $ids);
         return new View(array('success' => true, 'data' => $result), Response::HTTP_OK);
     }
 
@@ -228,12 +246,6 @@ class AGEmpresaController extends BaseController {
         $data = $data['company'];
         $data = (array) (json_decode($data));
 
-        if ($data['tipoCliente'] == 3) {
-            $findCompany = $this->getRepo('AGEmpresa')->findBy(array('tipoCliente' => 3));
-            if ($findCompany) {
-                return new View(array('success' => false, 'error' => $this->get('translator')->trans('ERRORCOMPANYEXIST')));
-            }
-        }
         $files = $request->files->all();
         if (count($files) > 0) {
             $saveLogo = $this->get('importfileimage')->moveFile($request, true);
@@ -248,24 +260,42 @@ class AGEmpresaController extends BaseController {
         return new View($save, Response::HTTP_OK);
     }
 
-    /* a partir de aqui caso de uso nuevo de gestionar cliente */
+    /* a partir de aqui caso de uso nuevo de gestionar cliente
+     * 
+     * @author John Vera
+     * @version 1.1 12-05-2017 multiempresa
+     * 
+     *  */
 
     /**
      * @Rest\Get("/api/empresa/cliente/listar")
      * @Method({"GET","OPTIONS"})
      */
-    public function getCompanyClientAction() {
+    public function getCompanyClientAction(Request $request)
+    {
+        $session = $request->getSession();
+        $idEmpresa = $session->get('idEmpresa');
+        try
+        {
 
-        $user = $this->getUserOfCurrentRequest();
-        if ($user) {
             $repoCompany = $this->getRepo('AGEmpresa');
-            if ($this->hasRole('Administrador')) {
+
+            if($this->hasRole('Administrador'))
+            {
                 return new View($this->normalizeResult('AGempresa', $repoCompany->getAllClientList()), Response::HTTP_OK);
-            } else {
-                return new View($this->normalizeResult('AGempresa', $repoCompany->getAllClientList(false, $user->getId())), Response::HTTP_OK);
             }
-        } else {
-            return new View($this->returnSecurityViolationResponse(), Response::HTTP_OK);
+            else
+            {   
+                $arrayCustomers = $repoCompany->findBy(array('empresaId'=> $idEmpresa, 'visible' => 1));
+                
+                return new View($this->normalizeResult('AGempresa', $arrayCustomers), Response::HTTP_OK);
+
+            }
+        }
+        catch(\Exception $ex)
+        {
+            $strError = $ex->getMessage();
+            return new View($strError, Response::HTTP_OK);
         }
     }
 
@@ -275,9 +305,11 @@ class AGEmpresaController extends BaseController {
      */
     public function postClientAction(Request $request) {
         $data = $request->request->all();
-
+        $session = $request->getSession();
+        $intEmpresaId = $session->get('idEmpresa');
         $data = $data['company'];
         $data = (array) (json_decode($data));
+        $data['empresaId'] = $intEmpresaId;
         $files = $request->files->all();
         if (count($files) > 0) {
             $saveLogo = $this->get('importfileimage')->moveFile($request, true);

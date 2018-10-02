@@ -128,7 +128,7 @@ var addModalTraceSubmit = function (id)
                 {
                     $("#addModalTrace").modal('hide');
                     waitMeHide("wrapper");
-                    alertify.success("Elemento insertado satisfactoriamente");
+                    alertify.success("registro ingresado satisfactoriamente");
                     builTraceOfCase(id);
                 }
             }, true, true);

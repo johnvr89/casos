@@ -47,11 +47,13 @@ class AGCasoRepository extends \AppBundle\Libs\Repository\BaseRepository {
         return $clients;
     }
 
-    public function getTotal() {
+    public function getTotal($intEmpresa) {
         $qb = $this->createQueryBuilder('entity');
         $qb->select('COUNT(entity.id)');
         $qb->andWhere($qb->expr()->eq('entity.visible', '?1'));
+        $qb->andWhere($qb->expr()->eq('entity.empresaRectora', '?2'));
         $qb->setParameter(1, 1);
+        $qb->setParameter(2, $intEmpresa);
         return $qb->getQuery()->getSingleScalarResult();
     }
 

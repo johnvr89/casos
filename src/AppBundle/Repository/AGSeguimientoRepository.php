@@ -4,6 +4,10 @@ namespace AppBundle\Repository;
 
 use AppBundle\Libs\Normalizer\ResultDecorator;
 use AppBundle\Libs\TraitMyCase\GetMyResorces;
+use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\Query\ResultSetMappingBuilder;
+use Doctrine\ORM\Query\Parameter;
+
 /**
  * AGSeguimientoRepository
  *
@@ -25,6 +29,25 @@ class AGSeguimientoRepository extends \AppBundle\Libs\Repository\BaseRepository 
         $qb->setParameter(2, 1);
         return $qb->getQuery()->getResult();
     }
+    
+    public function findTraceByParams($arrayParams) {
+        
+        $intEmpresa = $arrayParams['intEmpresa'];
+        
+        $qb = $this->_em->createQuery();
+        
+        $sql = "  SELECT s
+                    FROM AppBundle:AGSeguimiento s,
+                         AppBundle:AGCaso c
+                    WHERE s.caso = c.id 
+                    AND c.empresa = :empresa";
+        
+        $qb->setDQL($sql);
+        
+        $qb->setParameter('empresa', $intEmpresa);
+       
+        return $qb->getResult();
+    }      
     
 
 }

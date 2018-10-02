@@ -17,13 +17,17 @@ class AGTipoCasoController extends BaseController {
      * @Rest\Get("/api/tipocaso")
      * @Method({"GET","OPTIONS"})
      */
-    public function getAllAction() {
+    public function getAllAction(Request $request) {
+        $session = $request->getSession();
+        $intIdEmpresa = $session->get('idEmpresa');
         $garanted = $this->isGarantedInCurrentRequest('getAll', 'AGTipoCaso');
         $garantedView = $this->isGarantedInCurrentRequest('viewCaseType', 'AGTipoCaso');
         if (!$garanted && !$garantedView) {
             return new View($this->returnDeniedResponse(), Response::HTTP_OK);
         }
-        return new View($this->getAllDataOfModel('AGTipoCaso'), Response::HTTP_OK);
+        $result = $this->getRepo('AGTipoCaso')->findBy(array('visible' => 1, 'empresaId' => $intIdEmpresa));
+       
+        return new View($this->normalizeResult('AGTipoCaso', $result), Response::HTTP_OK);
     }
 
     /**
@@ -92,6 +96,10 @@ class AGTipoCasoController extends BaseController {
      */
     public function postAction(Request $request) {
         $data = $request->request->all();
+        
+        $session = $request->getSession();
+        $data['empresaId'] = $session->get('idEmpresa');
+        
         $save = $this->saveModel('AGTipoCaso', $data);
         return new View($save, Response::HTTP_OK);
     }

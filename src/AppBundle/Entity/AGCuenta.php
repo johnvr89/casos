@@ -94,6 +94,13 @@ class AGCuenta
      * @ORM\Column(name="visible", type="integer",nullable=true,options={"default" : 1})
      */
     private $visible=1;
+    
+     /**
+     * @var integer
+     *
+     * @ORM\Column(name="empresa_id", type="integer")
+     */
+    private $empresaId;    
 
 
     /**
@@ -363,4 +370,28 @@ class AGCuenta
     {
         return $this->visible;
     }
+    
+    /**
+     * Set empresaId
+     *
+     * @param integer $empresaId
+     *
+     * @return AGCuenta
+     */
+    public function setEmpresaId($empresaId)
+    {
+        $this->empresaId = $empresaId;
+
+        return $this;
+    }
+
+    /**
+     * Get empresaId
+     *
+     * @return integer
+     */
+    public function getEmpresaId()
+    {
+        return $this->empresaId;
+    }    
 }

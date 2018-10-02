@@ -21,11 +21,14 @@ class AGEmpresaRepository extends \AppBundle\Libs\Repository\BaseRepository {
 
 
 
-    public function getAllClient() {
+    public function getAllClient($intEmpresa) 
+    {
         $qb = $this->createQueryBuilder('company');
         $qb->innerJoin('company.tipoCliente', 'tipoCliente');
         $qb->andWhere($qb->expr()->eq('company.visible', '?1'));
+        $qb->andWhere($qb->expr()->eq('company.empresaId', '?2'));
         $qb->setParameter(1, 1);
+        $qb->setParameter(2, $intEmpresa);
         $qb->andWhere($qb->expr()->notIn('tipoCliente.id', array(3)));
 
         return $qb->getQuery()->getResult();
@@ -65,7 +68,7 @@ class AGEmpresaRepository extends \AppBundle\Libs\Repository\BaseRepository {
         return $qb->getQuery()->getSingleScalarResult();
     }
 
-    public function getClientCaseReport($all = true, $myCase = false, $intermediary = false, $initialDate, $endDate, $client = null, $lawer = null, $intermediary = null, $state = null, $caseType = null) {
+    public function getClientCaseReport($intEmpresa, $all = true, $myCase = false, $intermediary = false, $initialDate, $endDate, $client = null, $lawer = null, $intermediary = null, $state = null, $caseType = null) {
         $qb = $this->createQueryBuilder('entity');
 
         $qb->select('entity.nombre AS nombrecliente');
@@ -132,6 +135,13 @@ class AGEmpresaRepository extends \AppBundle\Libs\Repository\BaseRepository {
         $qb->andWhere($qb->expr()->eq('entity.visible', '?10'));
         $qb->andWhere($qb->expr()->eq('casos.visible', '?10'));
         $qb->setParameter(10, 1);
+        
+        if($intEmpresa > 0)
+        {
+            $qb->andWhere($qb->expr()->eq('casos.empresaRectora', '?11'));
+            $qb->setParameter(11, $intEmpresa);
+        }
+        
         $qb->addGroupBy('entity');
         $result = $qb->getQuery()->getResult();
         $nombrecliente = 'Total';

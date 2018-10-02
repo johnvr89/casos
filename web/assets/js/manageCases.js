@@ -169,7 +169,7 @@ var addModalCaseSubmit = function ()
                     {
                         $("#addCaseModal").modal('hide');
                         waitMeHide("wrapper");
-                        alertify.success("Elemento insertado satisfactoriamente");
+                        alertify.success("registro ingresado satisfactoriamente");
                         buildListCase();
                     }
                 }, false, true);
@@ -339,19 +339,43 @@ var detailModalCase = function () {
 
     $('#detailModalCase').on('show.bs.modal', function (e) {
         var data = $(e.relatedTarget).data().recordId;
-        var configDetail = [[{dataName: 'Nombre', dataIndex: 'nombre'},
-                {dataName: 'Ciudad', renderer: function (t) { return t['ciudad'].nombre;}},
-                {dataName: 'Tipo de caso', renderer: function (t) { return t['tipocaso'].nombre; }},
-                {dataName: 'Responsable', renderer: function (t) { return t['responsable'].nombreinterfaz; }},
-                {dataName:'Fecha de Creaci&oacute;n', dataIndex:'fechacreacion'},
-                {dataName: 'Estado', renderer: function (t) { return t['estado'].nombre; }}, 
-                {dataName: 'Deuda', dataIndex: 'cantidadatrazada'},],
-                [{dataName: 'Observaci&oacute;n', dataIndex: 'observacion'}, {dataName: 'Resoluci&oacute;n', dataIndex: 'resolucion'}],
-                [{dataName: 'Honorarios', dataIndex: 'honorarios'},
-                {dataName: 'Empresa', renderer: function (t) { return t['empresa'].nombre; }},
-                {dataName: 'Intermediario', renderer: function (t) { return t['intermediario'].nombreinterfaz != undefined ? t['intermediario'].nombreinterfaz : "Sin Intermediario"; }},
-                {dataName: 'Fecha pr&oacute;ximo pago', renderer: function (t) { return t['proximopago'] != "" ? t['proximopago'] : "No especificado"; }},
-                {dataName: 'Pagos pendientes', dataIndex: 'pagospendientes'}]];
+        
+        
+        
+        var configDetail = 
+                [
+                    [
+                        {dataName: 'Nombre', dataIndex: 'nombre'},
+                        {dataName: 'Empresa', renderer: function (t) { return t['empresa'].nombre; }},                        
+                        {dataName: 'Tipo de caso', renderer: function (t) { return t['tipocaso'].nombre; }},
+                        {dataName: 'Responsable', renderer: function (t) { return t['responsable'].nombreinterfaz; }},
+                        {dataName: 'Intermediario', renderer: function (t) { return t['intermediario'].nombreinterfaz != undefined ? t['intermediario'].nombreinterfaz : "Sin Intermediario"; }},
+                        {dataName: 'Fecha de Creaci&oacute;n', dataIndex:'fechacreacion'},
+                        {dataName: 'Estado', renderer: function (t) { return t['estado'].nombre; }}, 
+                        
+                    ],
+                    [
+                        {dataName: 'Deuda', dataIndex: 'cantidadatrazada'},        
+                        {dataName: 'Honorarios', dataIndex: 'honorarios'},                        
+                        {dataName: 'Ciudad', renderer: function (t) { return t['ciudad'].nombre;}},
+                        {dataName: 'Fec. pr&oacute;x. pago', renderer: function (t) { return t['proximopago'] != "" ? t['proximopago'] : "No especificado"; }},
+                        {dataName: 'Pagos pendientes', dataIndex: 'pagospendientes'},
+                        {dataName: 'Observaci&oacute;n', dataIndex: 'observacion'}
+                    ],                    
+                    [
+                        {dataName: 'Resoluci&oacute;n', dataIndex: 'resolucion'},
+                        {dataName: '', renderer: function (t) { 
+                                                                    var text = "<br>";
+                                                                    var i;
+                                                                    for (i = 0; i < t['detalles'].length; i++) {
+                                                                        text += "<b>"+t['detalles'][i].tipoCasoCaracteristica.nombre_campo + "</b><br>";
+                                                                        text += t['detalles'][i].valor + "<br> <br>";
+                                                                    }
+                                                                    return text;
+                                                              }}, 
+                    ]    
+
+                ];
         $('#detailContent').html("");
         buildDetail(data, 3, configDetail, 'detailContent');
     });

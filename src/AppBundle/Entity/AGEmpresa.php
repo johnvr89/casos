@@ -170,6 +170,13 @@ class AGEmpresa
      * @ORM\Column(name="visible", type="integer",nullable=true,options={"default" : 1})
      */
     private $visible = 1;
+    
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="empresa_id", type="integer",nullable=true)
+     */
+    private $empresaId;
 
 
     /**
@@ -479,6 +486,30 @@ class AGEmpresa
     {
         return $this->fechaCrea;
     }
+    
+    /**
+     * Set empresaId
+     *
+     * @param integer $empresaId
+     *
+     * @return AGEmpresa
+     */
+    public function setEmpresaId($empresaId)
+    {
+        $this->empresaId = $empresaId;
+
+        return $this;
+    }
+
+    /**
+     * Get empresaId
+     *
+     * @return integer
+     */
+    public function getEmpresaId()
+    {
+        return $this->empresaId;
+    }    
 
     /**
      * Set fechaModifica
